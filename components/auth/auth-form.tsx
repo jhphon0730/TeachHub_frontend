@@ -37,15 +37,15 @@ export function AuthForm({ type, onSubmit }: AuthFormProps) {
         <div className="grid gap-2">
           {type === 'register' && (
             <div className="grid gap-1">
-              <Label className="sr-only" htmlFor="name">
-                Name
+              <Label className="sr-only" htmlFor="username">
+                Username
               </Label>
               <Input
-                id="name"
-                placeholder="Name"
+                id="username"
+                placeholder="Username"
                 type="text"
                 autoCapitalize="words"
-                autoComplete="name"
+                autoComplete="username"
                 autoCorrect="off"
                 disabled={isLoading}
                 onChange={handleInputChange}
@@ -135,24 +135,6 @@ export function AuthForm({ type, onSubmit }: AuthFormProps) {
           </Link>
         </p>
       ) : (
-        <>
-          <p className="px-8 text-center text-sm text-muted-foreground">
-            By clicking continue, you agree to our{" "}
-            <Link
-              href="/terms"
-              className="hover:text-brand underline underline-offset-4"
-            >
-              Terms of Service
-            </Link>{" "}
-            and{" "}
-            <Link
-              href="/privacy"
-              className="hover:text-brand underline underline-offset-4"
-            >
-              Privacy Policy
-            </Link>
-            .
-          </p>
           <p className="px-8 text-center text-sm text-muted-foreground">
             <Link
               href="/login"
@@ -161,7 +143,6 @@ export function AuthForm({ type, onSubmit }: AuthFormProps) {
               Already have an account? Sign In
             </Link>
           </p>
-        </>
       )}
     </div>
   )
