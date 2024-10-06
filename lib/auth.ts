@@ -2,12 +2,12 @@ import { fetchWithoutAuth } from "@/lib/request";
 import { Response } from "@/lib/response";
 
 export interface UserModel {
-	ID: number	
-	Username: string
-	Email: string
-	Password: string
-	CreatedAt: string
-	UpdatedAt: string
+	id: number	
+	username: string
+	email: string
+	password: string
+	createdat: string
+	updatedat: string
 }
 
 export type LoginFormModel = {

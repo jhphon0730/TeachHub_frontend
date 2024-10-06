@@ -1,16 +1,30 @@
+'use client';
+
 import React from 'react';
+import { useSelector } from 'react-redux';
+import { useRouter } from 'next/navigation';
 
 import Navbar from "@/components/Navbar";
 
-interface MainLayoutProps extends React.HTMLAttributes<HTMLDivElement> {
+import { RootState } from '@/store';
 
+interface MainLayoutProps extends React.HTMLAttributes<HTMLDivElement> {
 }
 
 const MainLayout = ({ children }: MainLayoutProps) => {
+	const router = useRouter();
+	const user = useSelector((state: RootState) => state.auth).user;
+
+	React.useEffect(() => {
+		if (!user) {
+			router.push('/login');
+		}
+	}, [user])
+
 	return (
 		<div className="h-screen w-screen">
 			<header className="w-full">
-				<Navbar />
+				<Navbar username={user && user.username} />
 			</header>
 			<main className="container flex flex-col items-center justify-center mx-auto">
 				{children}

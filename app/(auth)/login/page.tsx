@@ -8,9 +8,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Icons } from "@/components/ui/icons";
 import { AuthForm } from "@/components/auth/auth-form";
 
-import { AppDispatch, RootState } from '@/store';
-import { validateLoginForm } from "@/lib/utils"
 import { login } from '@/store/authSlice';
+import { validateLoginForm } from "@/lib/utils"
+import { AppDispatch, RootState } from '@/store';
 
 const AuthLoginPage = () => {
 	const router = useRouter();
