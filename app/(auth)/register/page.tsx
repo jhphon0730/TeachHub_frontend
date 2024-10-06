@@ -29,6 +29,16 @@ const RegisterPage = () => {
   const handleSubmit = async (data: Record<string, string>) => {
 		const { username, email, password, confirmPassword } = data
 
+		if (!username || !email || !password || !confirmPassword) {
+			setErrors(["Please fill in all fields"])
+			await Swal.fire({
+				icon: 'error',
+				title: 'Invalid form data',
+				text: 'Please ensure that all fields are filled correctly',
+			})
+			return
+		}
+
 		if (password !== confirmPassword) {
 			setErrors(["Passwords do not match"])
 			await Swal.fire({

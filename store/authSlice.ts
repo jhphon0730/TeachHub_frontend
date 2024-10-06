@@ -3,7 +3,7 @@ import { UserModel, RequestLogin, RequestRegister, LoginFormModel, RegisterFormM
 
 interface AuthState {
   user: UserModel | null;
-  accessToken: string | null;
+  token: string | null;
   loading: boolean;
   error: string | null;
   registrationSuccess: boolean;
@@ -11,7 +11,7 @@ interface AuthState {
 
 const initialState: AuthState = {
   user: null,
-  accessToken: null,
+  token: null,
   loading: false,
   error: null,
   registrationSuccess: false,
@@ -19,8 +19,8 @@ const initialState: AuthState = {
 
 export const login = createAsyncThunk(
   'auth/login',
-  async ({ email, password }: LoginFormModel) => {
-    const response = await RequestLogin({ email, password });
+  async ({ username, password }: LoginFormModel) => {
+    const response = await RequestLogin({ username, password });
 		if (response.Status !== 'success') {
 			throw new Error(response.Message);
 		}
@@ -45,9 +45,9 @@ const authSlice = createSlice({
   reducers: {
     logout: (state) => {
       state.user = null;
-      state.accessToken = null;
+      state.token = null;
       localStorage.removeItem('user');
-      localStorage.removeItem('accessToken');
+      localStorage.removeItem('token');
     },
     resetRegistrationSuccess: (state) => {
       state.registrationSuccess = false;
@@ -61,15 +61,15 @@ const authSlice = createSlice({
       })
       .addCase(login.fulfilled, (state, action) => {
         state.loading = false;
-        if (!action.payload.Data || !action.payload.Data.user || !action.payload.Data.accessToken) {
+				console.log(action.payload)
+        if (!action.payload.Data || !action.payload.Data.user || !action.payload.Data.token) {
           state.error = 'Login failed';
           return;
         }
-
         state.user = action.payload.Data.user;
-        state.accessToken = action.payload.Data.accessToken;
+        state.token = action.payload.Data.token;
         localStorage.setItem('user', JSON.stringify(action.payload.Data.user));
-        localStorage.setItem('accessToken', action.payload.Data.accessToken);
+        localStorage.setItem('token', action.payload.Data.token);
       })
       .addCase(login.rejected, (state, action) => {
         state.loading = false;

@@ -38,38 +38,38 @@ export function AuthForm({ type, loading, onSubmit }: AuthFormProps) {
     <div className="grid gap-6">
       <form onSubmit={handleSubmit}>
         <div className="grid gap-2">
+					<div className="grid gap-1">
+						<Label className="sr-only" htmlFor="username">
+							Username
+						</Label>
+						<Input
+							id="username"
+							placeholder="Username"
+							type="text"
+							autoCapitalize="words"
+							autoComplete="username"
+							autoCorrect="off"
+							disabled={isLoading}
+							onChange={handleInputChange}
+						/>
+					</div>
           {type === 'register' && (
-            <div className="grid gap-1">
-              <Label className="sr-only" htmlFor="username">
-                Username
-              </Label>
-              <Input
-                id="username"
-                placeholder="Username"
-                type="text"
-                autoCapitalize="words"
-                autoComplete="username"
-                autoCorrect="off"
-                disabled={isLoading}
-                onChange={handleInputChange}
-              />
-            </div>
+						<div className="grid gap-1">
+							<Label className="sr-only" htmlFor="email">
+								Email
+							</Label>
+							<Input
+								id="email"
+								placeholder="name@example.com"
+								type="email"
+								autoCapitalize="none"
+								autoComplete="email"
+								autoCorrect="off"
+								disabled={isLoading}
+								onChange={handleInputChange}
+							/>
+						</div>
           )}
-          <div className="grid gap-1">
-            <Label className="sr-only" htmlFor="email">
-              Email
-            </Label>
-            <Input
-              id="email"
-              placeholder="name@example.com"
-              type="email"
-              autoCapitalize="none"
-              autoComplete="email"
-              autoCorrect="off"
-              disabled={isLoading}
-              onChange={handleInputChange}
-            />
-          </div>
           <div className="grid gap-1">
             <Label className="sr-only" htmlFor="password">
               Password

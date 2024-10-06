@@ -11,18 +11,23 @@ export interface UserModel {
 }
 
 export type LoginFormModel = {
-	email: string
+	username: string
 	password: string
 }
 type ResponseLoginUser = {
 	user: UserModel | null
-	accessToken: string | null
+	token: string | null
 }
-export const RequestLogin = async ({ email, password }: LoginFormModel): Promise<Response<ResponseLoginUser | null>> => {
+
+export const RequestLogin = async ({ username, password }: LoginFormModel): Promise<Response<ResponseLoginUser | null>> => {
+	const data = await fetchWithoutAuth('/login', {
+		method: 'POST',
+		body: JSON.stringify({ username, password })
+	})
 	return {
-		Message: 'Success',
-		Data: null,
-		Status: 'success'
+		Message: data.message,
+		Data: data.data,
+		Status: data.status
 	}
 }
 
