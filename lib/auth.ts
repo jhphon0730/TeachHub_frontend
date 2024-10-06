@@ -1,3 +1,4 @@
+import { fetchWithoutAuth } from "@/lib/request";
 import { Response } from "@/lib/response";
 
 export interface UserModel {
@@ -31,9 +32,13 @@ export type RegisterFormModel = {
 	password: string 
 }
 export const RequestRegister = async ({ email, username, password }: RegisterFormModel): Promise<Response<null>> => {
+	const data = await fetchWithoutAuth('/register', {
+		method: 'POST',
+		body: JSON.stringify({ email, username, password })
+	})
 	return {
-		Message: 'Success',
-		Data: null,
-		Status: '1'
+		Message: data.message,
+		Data: data.data,
+		Status: data.status
 	}
 }

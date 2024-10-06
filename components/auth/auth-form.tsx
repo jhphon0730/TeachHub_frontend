@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import Link from "next/link"
 
 import { Button } from "@/components/ui/button"
@@ -10,18 +10,21 @@ import { Icons } from "@/components/ui/icons"
 
 interface AuthFormProps {
   type: 'login' | 'register'
+	loading: boolean
   onSubmit: (data: Record<string, string>) => Promise<void>
 }
 
-export function AuthForm({ type, onSubmit }: AuthFormProps) {
-  const [isLoading, setIsLoading] = useState<boolean>(false)
+export function AuthForm({ type, loading, onSubmit }: AuthFormProps) {
+  const [isLoading, setIsLoading] = useState<boolean>(loading)
   const [formData, setFormData] = useState<Record<string, string>>({})
+
+	useEffect(() => {
+		setIsLoading(() => loading)
+	}, [loading])
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
-    setIsLoading(true)
     await onSubmit(formData)
-    setIsLoading(false)
   }
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -83,11 +86,11 @@ export function AuthForm({ type, onSubmit }: AuthFormProps) {
           </div>
           {type === 'register' && (
             <div className="grid gap-1">
-              <Label className="sr-only" htmlFor="confirm-password">
+              <Label className="sr-only" htmlFor="confirmPassword">
                 Confirm Password
               </Label>
               <Input
-                id="confirm-password"
+                id="confirmPassword"
                 placeholder="Confirm Password"
                 type="password"
                 autoCapitalize="none"

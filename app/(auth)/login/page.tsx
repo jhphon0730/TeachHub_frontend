@@ -21,7 +21,7 @@ const AuthLoginPage = () => {
 					Enter your email to sign in to your account
 				</p>
 			</div>
-			<AuthForm type="login" onSubmit={handleSubmit} />
+			<AuthForm type="login" loading={true} onSubmit={handleSubmit} />
 		</React.Fragment>
   )
 }
