@@ -1,5 +1,5 @@
 export interface Response<T> {
-	Status: string
+	Status: 'error' | 'success'
 	Message: string
 	Data: T
 }

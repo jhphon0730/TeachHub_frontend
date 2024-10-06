@@ -1,6 +1,7 @@
 "use client"
 
 import React from 'react';
+import Swal from 'sweetalert2';
 import { useRouter } from 'next/navigation';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -16,6 +17,8 @@ const RegisterPage = () => {
 	const dispatch = useDispatch<AppDispatch>();
 	const { loading, error, registrationSuccess } = useSelector((state: RootState) => state.auth);
 
+	const [errors, setErrors] = React.useState<string[]>();
+
 	React.useEffect(() => {
 		if (registrationSuccess) {
 			router.push('/login');
@@ -25,30 +28,45 @@ const RegisterPage = () => {
 
   const handleSubmit = async (data: Record<string, string>) => {
 		const { username, email, password, confirmPassword } = data
-		console.log(data)
 
 		if (password !== confirmPassword) {
-			// SweetAlert2
+			setErrors(["Passwords do not match"])
+			await Swal.fire({
+				icon: 'error',
+				title: 'Passwords do not match',
+				text: 'Please ensure that both passwords match',
+			})
 			return
 		}
 
 		const { isValid, errors } = validateRegisterForm(username, password, email)
 		if (!isValid) {
-			console.log(errors)
-			// SweetAlert2
-			// set errors ( useState ) TODO
+			setErrors(errors)
+			await Swal.fire({
+				icon: 'error',
+				title: 'Invalid form data',
+				text: 'Please ensure that all fields are filled correctly',
+			})
 			return
 		}
 
-		try {
-			// unwrap() is a utility function that extracts the payload from a fulfilled action
-			const res = await dispatch(register({ username, email, password })).unwrap() 
-			console.log(res)
-		} catch (error) {
-			console.error(error)
-		}
-
-		console.log( username, email, password, confirmPassword )
+		// unwrap() is a utility function that extracts the payload from a fulfilled action
+		await dispatch(register({ username, email, password })).unwrap() 
+		.then(() => {
+			Swal.fire({
+				icon: 'success',
+				title: 'Account created successfully',
+				text: 'You can now login to your account',
+			})
+		})
+		.catch((err) => {
+			Swal.fire({
+				icon: 'error',
+				title: 'An error occurred',
+				text: err.message,
+			})
+		})
+		return
   }
 
   return (
@@ -66,6 +84,9 @@ const RegisterPage = () => {
 				onSubmit={handleSubmit} 
 			/>
 			{ error && <p className="text-red-500 text-sm text-center">{error}</p> }
+			{ errors && errors.map((error, index) => (
+				<p key={index} className="text-red-500 text-sm text-center">{error}</p>
+			)) }
 		</React.Fragment>
   )
 }

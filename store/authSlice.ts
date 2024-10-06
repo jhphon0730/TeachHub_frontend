@@ -21,6 +21,9 @@ export const login = createAsyncThunk(
   'auth/login',
   async ({ email, password }: LoginFormModel) => {
     const response = await RequestLogin({ email, password });
+		if (response.Status !== 'success') {
+			throw new Error(response.Message);
+		}
     return response;
   }
 );
@@ -29,6 +32,9 @@ export const register = createAsyncThunk(
   'auth/register',
   async ({ username, email, password }: RegisterFormModel) => {
     const response = await RequestRegister({ email, username, password });
+		if (response.Status !== 'success') {
+			throw new Error(response.Message);
+		}
     return response;
   }
 );

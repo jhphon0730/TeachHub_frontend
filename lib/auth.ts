@@ -22,7 +22,7 @@ export const RequestLogin = async ({ email, password }: LoginFormModel): Promise
 	return {
 		Message: 'Success',
 		Data: null,
-		Status: '1'
+		Status: 'success'
 	}
 }
 
