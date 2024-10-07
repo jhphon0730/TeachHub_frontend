@@ -73,7 +73,7 @@ const AuthProfilePage = () => {
 				<section className="mb-8">
 					<h2 className="text-2xl font-semibold mb-4">Skills</h2>
 					<div className="flex flex-wrap gap-2">
-						{["JavaScript", "React", "Node.js", "TypeScript", "GraphQL", "Next.js"].map((skill) => (
+						{user.skills && user.skills.length && user.skills.map((skill) => (
 							<span key={skill} className="bg-gray-200 text-gray-700 px-3 py-1 rounded-full text-sm">
 								{skill}
 							</span>
