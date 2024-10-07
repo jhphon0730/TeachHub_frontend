@@ -1,5 +1,9 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { UserModel, RequestLogin, RequestRegister, LoginFormModel, RegisterFormModel } from '@/lib/api/auth';
+import { 
+	UserModel, 
+	RequestLogin, RequestRegister, RequestUpdate,
+	LoginFormModel, RegisterFormModel, UpdateFormModel
+} from '@/lib/api/auth';
 
 interface AuthState {
   user: UserModel | null;
@@ -37,6 +41,17 @@ export const register = createAsyncThunk(
 		}
     return response;
   }
+);
+
+export const update = createAsyncThunk(
+	'auth/update',
+	async ({ username, email, bio, skills }: UpdateFormModel) => {
+		const response = await RequestUpdate({ email, username, bio, skills });
+		if (response.Status !== 'success') {
+			throw new Error(response.Message);
+		}
+		return response;
+	}
 );
 
 const authSlice = createSlice({
@@ -86,7 +101,22 @@ const authSlice = createSlice({
       .addCase(register.rejected, (state, action) => {
         state.loading = false;
         state.error = action.error.message || 'Registration failed';
-      });
+      })
+			.addCase(update.pending, (state) => {
+				state.loading = true;
+				state.error = null;
+			})
+			.addCase(update.fulfilled, (state, action) => {
+				state.loading = false;
+				state.user = null;
+				state.token = null;
+				localStorage.removeItem('user');
+				localStorage.removeItem('token');
+			})
+			.addCase(update.rejected, (state, action) => {
+				state.loading = false;
+				state.error = action.error.message || 'Update failed';
+			});
   },
 });
 

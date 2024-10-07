@@ -52,3 +52,23 @@ export const RequestRegister = async ({ email, username, password }: RegisterFor
 		Status: data.status
 	}
 }
+
+/** Update */
+export type UpdateFormModel = {
+	username: string
+	email: string
+	bio: string
+	skills: string[] | null
+}
+export type ResponseUpdate = null
+export const RequestUpdate = async ({ username, email, bio, skills }: UpdateFormModel): Promise<Response<ResponseUpdate>> => {
+	const data = await fetchWithoutAuth('/update', {
+		method: 'PUT',
+		body: JSON.stringify({ username, email, bio, skills })
+	})
+	return {
+		Message: data.message,
+		Data: data.data,
+		Status: data.status
+	}
+}

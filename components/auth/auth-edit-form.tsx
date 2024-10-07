@@ -1,7 +1,7 @@
 "use client"
 
-import { useState, useEffect } from "react"
 import Link from "next/link"
+import { useState } from "react"
 
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -9,17 +9,12 @@ import { Label } from "@/components/ui/label"
 import { Icons } from "@/components/ui/icons"
 
 interface AuthEditFormProps {
-	userID: number
   onSubmit: (data: Record<string, string>) => Promise<void>
 }
 
-const AuthEditForm = ({ userID, onSubmit }: AuthEditFormProps) => {
+const AuthEditForm = ({ onSubmit }: AuthEditFormProps) => {
   const [isLoading, setIsLoading] = useState<boolean>(false)
   const [formData, setFormData] = useState<Record<string, string>>({})
-
-	useEffect(() => {
-		// fetch user data 
-	}, [])
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()

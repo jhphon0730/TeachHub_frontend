@@ -54,7 +54,7 @@ const AuthProfilePage = () => {
 						</a>
 					</div>
 					<div className="mt-6">
-						<Link href="/profile/edit" passHref>
+						<Link href="/edit" passHref>
 							<Button className="w-full">
 								<PenIcon className="w-4 h-4 mr-2" />
 								Edit Profile
@@ -67,7 +67,7 @@ const AuthProfilePage = () => {
 				<section className="mb-8">
 					<h2 className="text-2xl font-semibold mb-4">About Me</h2>
 					<p className="text-gray-700">
-						{user.bio || "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."}
+						{user.bio || "..."}
 					</p>
 				</section>
 				<section className="mb-8">
