@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { UserModel, RequestLogin, RequestRegister, LoginFormModel, RegisterFormModel } from '@/lib/auth';
+import { UserModel, RequestLogin, RequestRegister, LoginFormModel, RegisterFormModel } from '@/lib/api/auth';
 
 interface AuthState {
   user: UserModel | null;
