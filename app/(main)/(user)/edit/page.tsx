@@ -2,7 +2,6 @@
 
 import React from "react"
 
-import { Icons } from "@/components/ui/icons"
 import AuthEditForm from "@/components/auth/auth-edit-form"
 
 import { RootState } from '@/store'

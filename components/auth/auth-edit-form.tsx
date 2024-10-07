@@ -5,6 +5,7 @@ import { useState } from "react"
 
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
+import { Textarea } from "@/components/ui/textarea"
 import { Label } from "@/components/ui/label"
 import { Icons } from "@/components/ui/icons"
 
@@ -23,7 +24,7 @@ const AuthEditForm = ({ onSubmit }: AuthEditFormProps) => {
     setIsLoading(false)
   }
 
-  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setFormData({
       ...formData,
       [event.target.id]: event.target.value,
@@ -63,6 +64,33 @@ const AuthEditForm = ({ onSubmit }: AuthEditFormProps) => {
               disabled={isLoading}
               onChange={handleInputChange}
             />
+          </div>
+          <div className="grid gap-1">
+            <Label className="sr-only" htmlFor="bio">
+              Bio
+            </Label>
+            <Textarea
+              id="bio"
+              placeholder="Bio"
+              autoCapitalize="none"
+              autoCorrect="off"
+              disabled={isLoading}
+              onChange={handleInputChange}
+            />
+          </div>
+          <div className="grid gap-1">
+            <Label className="sr-only" htmlFor="skills">
+							Skills
+            </Label>
+            <Textarea
+              id="skills"
+              placeholder="Skills"
+              autoCapitalize="none"
+              autoCorrect="off"
+              disabled={isLoading}
+              onChange={handleInputChange}
+            />
+						<p className="text-sm text-gray-500">Separate each skill with a comma</p>
           </div>
           <div className="grid gap-1">
             <Label className="sr-only" htmlFor="password">
