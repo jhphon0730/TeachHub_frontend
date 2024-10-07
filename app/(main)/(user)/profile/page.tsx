@@ -41,7 +41,8 @@ const AuthProfilePage = () => {
 						</div>
 						<div className="flex items-center">
 							<CalendarIcon className="w-5 h-5 mr-2 text-gray-500" />
-							<span>Joined {new Date(user.createdat).toLocaleDateString()}</span>
+							<span>Joined {new Date(user.created_at).toLocaleDateString()}</span>
+							<span className="ml-2 text-gray-500 text-sm">Last updated {new Date(user.updated_at).toLocaleDateString()}</span>
 						</div>
 					</div>
 					<div className="mt-6 flex justify-center space-x-4">
