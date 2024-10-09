@@ -2,21 +2,21 @@
 
 import React from "react"
 import Swal from 'sweetalert2';
+import { useRouter } from 'next/navigation';
+import { useDispatch, useSelector } from 'react-redux';
 
 import AuthEditForm from "@/components/auth/auth-edit-form"
 
-import { RootState } from '@/store'
-import { useSelector } from 'react-redux'
 import { update } from '@/store/authSlice'
+import { AppDispatch, RootState } from '@/store';
 import { AuthUpdateFormError, validateUpdateForm } from "@/lib/utils"
 
 const AuthProfileEditPage = () => {
+	const router = useRouter()
+	const dispatch = useDispatch<AppDispatch>();
 	const { loading, error, user } = useSelector((state: RootState) => state.auth);
-	const [errors, setErrors] = React.useState<AuthUpdateFormError>({ isValid: true, errors: {} });
 
-  if (!user) {
-    return <div>Loading...</div>
-  }
+	const [errors, setErrors] = React.useState<AuthUpdateFormError>({ isValid: true, errors: {} });
 
   const handleSubmit = async (data: Record<string, string>) => {
 		const {username, email, bio, skills, password, confirmPassword} = data 
@@ -52,6 +52,26 @@ const AuthProfileEditPage = () => {
 			return
 		}
 
+		// skills는 배열로 받아오기 때문에, 배열로 변환해서 넣어준다.
+		const skills_list = skills.split(',').map(skill => skill.trim())
+
+		await dispatch(update({ username, email, bio, skills: skills_list, password }))
+		.then(() => {
+			Swal.fire({
+				icon: 'success',
+				title: 'Profile Updated',
+				text: 'Your profile has been updated successfully',
+			})
+			router.push('/login')
+		})
+		.catch((error) => {
+			Swal.fire({
+				icon: 'error',
+				title: 'Profile Update Failed',
+				text: 'There was an error updating your profile. Please try again',
+			})
+		})
+		return
   }
 
 	return (

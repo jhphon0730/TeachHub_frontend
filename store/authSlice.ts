@@ -45,8 +45,8 @@ export const register = createAsyncThunk(
 
 export const update = createAsyncThunk(
 	'auth/update',
-	async ({ username, email, bio, skills }: UpdateFormModel) => {
-		const response = await RequestUpdate({ email, username, bio, skills });
+	async ({ username, email, bio, skills, password }: UpdateFormModel) => {
+		const response = await RequestUpdate({ email, username, bio, skills, password });
 		if (response.Status !== 'success') {
 			throw new Error(response.Message);
 		}
@@ -76,7 +76,6 @@ const authSlice = createSlice({
       })
       .addCase(login.fulfilled, (state, action) => {
         state.loading = false;
-				console.log(action.payload)
         if (!action.payload.Data || !action.payload.Data.user || !action.payload.Data.token) {
           state.error = 'Login failed';
           return;

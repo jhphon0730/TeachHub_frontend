@@ -59,12 +59,13 @@ export type UpdateFormModel = {
 	email: string
 	bio: string
 	skills: string[] | null
+	password: string
 }
 export type ResponseUpdate = null
-export const RequestUpdate = async ({ username, email, bio, skills }: UpdateFormModel): Promise<Response<ResponseUpdate>> => {
+export const RequestUpdate = async ({ username, email, bio, skills, password }: UpdateFormModel): Promise<Response<ResponseUpdate>> => {
 	const data = await fetchWithoutAuth('/update', {
 		method: 'PUT',
-		body: JSON.stringify({ username, email, bio, skills })
+		body: JSON.stringify({ username, email, bio, skills, password })
 	})
 	return {
 		Message: data.message,
