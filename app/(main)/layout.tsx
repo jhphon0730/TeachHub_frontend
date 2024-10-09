@@ -26,7 +26,7 @@ const MainLayout = ({ children }: MainLayoutProps) => {
 			<header className="w-full">
 				<Navbar username={user && user.username} />
 			</header>
-			<main className="container flex flex-col items-center justify-center mx-auto">
+			<main className="container flex flex-col items-center justify-center mx-auto p-3 md:p-0">
 				{children}
 			</main>
 		</div>
