@@ -9,13 +9,25 @@ import { Textarea } from "@/components/ui/textarea"
 import { Label } from "@/components/ui/label"
 import { Icons } from "@/components/ui/icons"
 
+import { UserModel } from "@/lib/api/auth"
+import { AuthUpdateFormError } from "@/lib/utils"
+
 interface AuthEditFormProps {
+	user: UserModel
+	errors: AuthUpdateFormError
   onSubmit: (data: Record<string, string>) => Promise<void>
 }
 
-const AuthEditForm = ({ onSubmit }: AuthEditFormProps) => {
+const AuthEditForm = ({ user, errors, onSubmit }: AuthEditFormProps) => {
   const [isLoading, setIsLoading] = useState<boolean>(false)
-  const [formData, setFormData] = useState<Record<string, string>>({})
+  const [formData, setFormData] = useState<Record<string, string>>({
+		"username": user.username,
+		"email": user.email,
+		"bio": user.bio,  
+		"skills": user.skills ? user.skills.join(", ") : "",
+		"password": "",
+		"confirmPassword": "",
+	})
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
@@ -48,7 +60,9 @@ const AuthEditForm = ({ onSubmit }: AuthEditFormProps) => {
 							autoCorrect="off"
 							disabled={isLoading}
 							onChange={handleInputChange}
+							value={formData.username}
 						/>
+						{ errors.errors.username && <p className="text-red-500 text-sm">{errors.errors.username}</p> }
 					</div>
           <div className="grid gap-1">
             <Label className="sr-only" htmlFor="email">
@@ -63,7 +77,9 @@ const AuthEditForm = ({ onSubmit }: AuthEditFormProps) => {
               autoCorrect="off"
               disabled={isLoading}
               onChange={handleInputChange}
+							value={formData.email}
             />
+						{ errors.errors.email && <p className="text-red-500 text-sm">{errors.errors.email}</p> }
           </div>
           <div className="grid gap-1">
             <Label className="sr-only" htmlFor="bio">
@@ -76,6 +92,7 @@ const AuthEditForm = ({ onSubmit }: AuthEditFormProps) => {
               autoCorrect="off"
               disabled={isLoading}
               onChange={handleInputChange}
+							value={formData.bio}
             />
           </div>
           <div className="grid gap-1">
@@ -84,13 +101,14 @@ const AuthEditForm = ({ onSubmit }: AuthEditFormProps) => {
             </Label>
             <Textarea
               id="skills"
-              placeholder="Skills"
+              placeholder="ex) JavaScript, React, Node.js"
               autoCapitalize="none"
               autoCorrect="off"
               disabled={isLoading}
               onChange={handleInputChange}
+							value={formData.skills}
             />
-						<p className="text-sm text-gray-500">Separate each skill with a comma</p>
+						<p className="text-sm text-gray-500">Separate each skill with a comma ","</p>
           </div>
           <div className="grid gap-1">
             <Label className="sr-only" htmlFor="password">
@@ -105,13 +123,14 @@ const AuthEditForm = ({ onSubmit }: AuthEditFormProps) => {
               disabled={isLoading}
               onChange={handleInputChange}
             />
+						{ errors.errors.password && <p className="text-red-500 text-sm">{errors.errors.password}</p> }
           </div>
 					<div className="grid gap-1">
-						<Label className="sr-only" htmlFor="confirm-password">
+						<Label className="sr-only" htmlFor="confirmPassword">
 							Confirm Password
 						</Label>
 						<Input
-							id="confirm-password"
+							id="confirmPassword"
 							placeholder="Confirm Password"
 							type="password"
 							autoCapitalize="none"
@@ -120,6 +139,7 @@ const AuthEditForm = ({ onSubmit }: AuthEditFormProps) => {
 							onChange={handleInputChange}
 						/>
 					</div>
+					{ errors.errors.password && <p className="text-red-500 text-sm">{errors.errors.password}</p> }
           <Button disabled={isLoading}>
             {isLoading && (
               <Icons.spinner className="mr-2 h-4 w-4 animate-spin" />

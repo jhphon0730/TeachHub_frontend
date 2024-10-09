@@ -62,3 +62,37 @@ export const validateRegisterForm = (username: string, password: string, email: 
     errors
   };
 };
+
+// When the user submits the form, validate the input ( Update | Edit )
+export interface AuthUpdateFormError {
+	isValid: boolean;
+	errors: {
+			username?: string;
+			password?: string;
+			email?: string;
+	};
+}
+export const validateUpdateForm = (username: string, password: string, email: string): AuthUpdateFormError => {
+  const error: AuthUpdateFormError = {
+		isValid: true,
+		errors: {
+			username: "",
+			password: "",
+			email: "",
+		},
+	};
+
+  if (!isValidUsername(username)) {
+    error.errors['username'] = "Username must be at least 6 characters long and include a number."
+  }
+
+  if (!isValidPassword(password)) {
+		error.errors["password"] = "Password must be at least 6 characters long and include a special character, an uppercase letter, and a number."
+  }
+
+  if (!isValidEmail(email)) {
+		error.errors["email"] = "Please enter a valid email address."
+  }
+
+  return error;
+};
