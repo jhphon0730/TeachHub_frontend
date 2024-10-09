@@ -68,11 +68,11 @@ const AuthProfileEditPage = () => {
 			router.push('/login')
 		})
 		.catch((error) => {
-			alert(error)
+			console.error('update failed', error)
 			Swal.fire({
 				icon: 'error',
-				title: error.Message ? error.Message : 'Error',
-				text: 'There was an error updating your profile. Please try again',
+				title: 'update failed',
+				text: error.message ? error.message : 'There was an error updating your profile. Please try again',
 			})
 		})
 		return
