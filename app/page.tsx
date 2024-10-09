@@ -13,17 +13,14 @@ export default function Component() {
 
   const NavItems = () => (
     <>
+      <Link className="text-sm font-medium hover:underline underline-offset-4" href="/dashboard">
+				Dashboard
+			</Link>
       <Link className="text-sm font-medium hover:underline underline-offset-4" href="#">
         Features
       </Link>
       <Link className="text-sm font-medium hover:underline underline-offset-4" href="#">
-        Pricing
-      </Link>
-      <Link className="text-sm font-medium hover:underline underline-offset-4" href="#">
         About
-      </Link>
-      <Link className="text-sm font-medium hover:underline underline-offset-4" href="#">
-        Contact
       </Link>
     </>
   )
