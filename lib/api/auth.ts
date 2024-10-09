@@ -26,7 +26,6 @@ export const RequestLogin = async ({ username, password }: LoginFormModel): Prom
 		method: 'POST',
 		body: JSON.stringify({ username, password })
 	})
-	console.log(data.data)
 	return {
 		message: data.message,
 		data: data.data,

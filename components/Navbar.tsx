@@ -1,19 +1,39 @@
 "use client"
 
 import Link from 'next/link'
+import Swal from 'sweetalert2'
 import { useState } from 'react'
-import { ChevronDown, User, Edit } from 'lucide-react'
+import { useRouter } from 'next/navigation';
+import { useDispatch } from 'react-redux';
+import { ChevronDown, User, LogOut } from 'lucide-react'
 
 import { Button } from "@/components/ui/button"
 import { Skeleton } from '@/components/ui/skeleton'
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger, } from "@/components/ui/dropdown-menu"
+
+import { logout } from '@/store/authSlice';
 
 interface NavbarProps {
   username: string | null
 }
 
 const Navbar = ({ username }: NavbarProps) => {
+	const router = useRouter()
+	const dispatch = useDispatch()
+
   const [isOpen, setIsOpen] = useState(false)
+
+	const logoutUserHandler = async (): Promise<void> => {
+		dispatch(logout())
+		await Swal.fire({
+			title: 'Logged Out',
+			icon: 'success',
+			showConfirmButton: false,
+			timer: 1500,
+		})
+		router.push('/login')
+		return
+	}
 
   return (
     <nav className="bg-white shadow">
@@ -35,18 +55,18 @@ const Navbar = ({ username }: NavbarProps) => {
                     <ChevronDown className="h-4 w-4" />
                   </Button>
                 </DropdownMenuTrigger>
-                <DropdownMenuContent align="end" className="w-56">
+                <DropdownMenuContent align="end" className="w-32">
                   <DropdownMenuItem asChild>
                     <Link href="/profile" className="flex items-center">
                       <User className="mr-2 h-4 w-4" />
-                      <span>Go to Profile</span>
+                      <span>My Profile</span>
                     </Link>
                   </DropdownMenuItem>
                   <DropdownMenuItem asChild>
-                    <Link href="/edit" className="flex items-center">
-                      <Edit className="mr-2 h-4 w-4" />
-                      <span>Edit Profile</span>
-                    </Link>
+                    <button onClick={logoutUserHandler} className="w-full">
+                      <LogOut className="mr-2 h-4 w-4" />
+                      <span>Logout</span>
+                    </button>
                   </DropdownMenuItem>
                 </DropdownMenuContent>
               </DropdownMenu>
