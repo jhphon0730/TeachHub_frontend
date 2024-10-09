@@ -25,8 +25,8 @@ export const login = createAsyncThunk(
   'auth/login',
   async ({ username, password }: LoginFormModel) => {
     const response = await RequestLogin({ username, password });
-		if (response.Status !== 'success') {
-			throw new Error(response.Message);
+		if (response.status !== 'success') {
+			throw new Error(response.message);
 		}
     return response;
   }
@@ -36,8 +36,8 @@ export const register = createAsyncThunk(
   'auth/register',
   async ({ username, email, password }: RegisterFormModel) => {
     const response = await RequestRegister({ email, username, password });
-		if (response.Status !== 'success') {
-			throw new Error(response.Message);
+		if (response.status !== 'success') {
+			throw new Error(response.message);
 		}
     return response;
   }
@@ -47,8 +47,9 @@ export const update = createAsyncThunk(
 	'auth/update',
 	async ({ username, email, bio, skills, password }: UpdateFormModel) => {
 		const response = await RequestUpdate({ email, username, bio, skills, password });
-		if (response.Status !== 'success') {
-			throw new Error(response.Message);
+		console.log(response)
+		if (response.status !== 'success') {
+			throw new Error(response.message);
 		}
 		return response;
 	}
@@ -76,14 +77,14 @@ const authSlice = createSlice({
       })
       .addCase(login.fulfilled, (state, action) => {
         state.loading = false;
-        if (!action.payload.Data || !action.payload.Data.user || !action.payload.Data.token) {
+        if (!action.payload.data || !action.payload.data.user || !action.payload.data.token) {
           state.error = 'Login failed';
           return;
         }
-        state.user = action.payload.Data.user;
-        state.token = action.payload.Data.token;
-        localStorage.setItem('user', JSON.stringify(action.payload.Data.user));
-        localStorage.setItem('token', action.payload.Data.token);
+        state.user = action.payload.data.user;
+        state.token = action.payload.data.token;
+        localStorage.setItem('user', JSON.stringify(action.payload.data.user));
+        localStorage.setItem('token', action.payload.data.token);
       })
       .addCase(login.rejected, (state, action) => {
         state.loading = false;

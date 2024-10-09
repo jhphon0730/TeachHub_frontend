@@ -18,7 +18,7 @@ export const fetchWithoutAuth = async (url: string, options: FetchOptions = {} )
 	};
 
   const response = await fetch("http://localhost:8080" + url, mergedOptions);
-	return response.json();
+	return await response.json();
 }
 
 export const fetchWithAuth = async (url: string, options: FetchOptions = {} ) => {
@@ -38,5 +38,5 @@ export const fetchWithAuth = async (url: string, options: FetchOptions = {} ) =>
   };
 
   const response = await fetch("http://localhost:8080" + url, mergedOptions);
-  return response.json();
+  return await response.json();
 };

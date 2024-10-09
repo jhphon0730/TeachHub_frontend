@@ -28,9 +28,9 @@ export const RequestLogin = async ({ username, password }: LoginFormModel): Prom
 	})
 	console.log(data.data)
 	return {
-		Message: data.message,
-		Data: data.data,
-		Status: data.status
+		message: data.message,
+		data: data.data,
+		status: data.status
 	}
 }
 
@@ -47,9 +47,9 @@ export const RequestRegister = async ({ email, username, password }: RegisterFor
 		body: JSON.stringify({ email, username, password })
 	})
 	return {
-		Message: data.message,
-		Data: data.data,
-		Status: data.status
+		message: data.message,
+		data: data.data,
+		status: data.status
 	}
 }
 
@@ -68,8 +68,8 @@ export const RequestUpdate = async ({ username, email, bio, skills, password }: 
 		body: JSON.stringify({ username, email, bio, skills, password })
 	})
 	return {
-		Message: data.message,
-		Data: data.data,
-		Status: data.status
+		message: data.message,
+		data: data.data,
+		status: data.status
 	}
 }

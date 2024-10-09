@@ -93,10 +93,12 @@ const RegisterPage = () => {
 				loading={loading}
 				onSubmit={handleSubmit} 
 			/>
+			{/*
 			{ error && <p className="text-red-500 text-sm text-center">{error}</p> }
 			{ errors && errors.map((error, index) => (
 				<p key={index} className="text-red-500 text-sm text-center">{error}</p>
 			)) }
+			*/}
 		</React.Fragment>
   )
 }

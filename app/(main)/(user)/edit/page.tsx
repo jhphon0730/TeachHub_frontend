@@ -58,7 +58,7 @@ const AuthProfileEditPage = () => {
 		// skills는 배열로 받아오기 때문에, 배열로 변환해서 넣어준다.
 		const skills_list = skills.split(',').map(skill => skill.trim())
 
-		await dispatch(update({ username, email, bio, skills: skills_list, password }))
+		await dispatch(update({ username, email, bio, skills: skills_list, password })).unwrap()
 		.then(async () => {
 			await Swal.fire({
 				icon: 'success',
@@ -68,9 +68,10 @@ const AuthProfileEditPage = () => {
 			router.push('/login')
 		})
 		.catch((error) => {
+			alert(error)
 			Swal.fire({
 				icon: 'error',
-				title: 'Profile Update Failed',
+				title: error.Message ? error.Message : 'Error',
 				text: 'There was an error updating your profile. Please try again',
 			})
 		})

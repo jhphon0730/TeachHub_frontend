@@ -62,7 +62,7 @@ const AuthLoginPage = () => {
 			Swal.fire({
 				icon: 'error',
 				title: 'Login failed',
-				text: error.message,
+				text: "Please check your credentials and try again",
 			})
 		})
 		return
@@ -78,10 +78,12 @@ const AuthLoginPage = () => {
 				</p>
 			</div>
 			<AuthForm type="login" loading={loading} onSubmit={handleSubmit} />
+			{/*
 			{ error && <p className="text-red-500 text-sm text-center">{error}</p> }
 			{ errors && errors.map((error, index) => (
 				<p key={index} className="text-red-500 text-sm text-center">{error}</p>
 			)) }
+			*/}
 		</React.Fragment>
   )
 }
