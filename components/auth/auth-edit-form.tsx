@@ -44,11 +44,11 @@ const AuthEditForm = ({ user, errors, onSubmit }: AuthEditFormProps) => {
   }
 
   return (
-    <div className="grid gap-6">
+    <div className="grid gap-6 mt-8">
       <form onSubmit={handleSubmit}>
         <div className="grid gap-2">
 					<div className="grid gap-1">
-						<Label className="sr-only" htmlFor="username">
+						<Label className="mt-2 font-bold" htmlFor="username">
 							Username
 						</Label>
 						<Input
@@ -58,14 +58,14 @@ const AuthEditForm = ({ user, errors, onSubmit }: AuthEditFormProps) => {
 							autoCapitalize="words"
 							autoComplete="username"
 							autoCorrect="off"
-							disabled={isLoading}
 							onChange={handleInputChange}
 							value={formData.username}
+							disabled={true}
 						/>
 						{ errors.errors.username && <p className="text-red-500 text-sm">{errors.errors.username}</p> }
 					</div>
           <div className="grid gap-1">
-            <Label className="sr-only" htmlFor="email">
+            <Label className="mt-2 font-bold" htmlFor="email">
               Email
             </Label>
             <Input
@@ -82,7 +82,7 @@ const AuthEditForm = ({ user, errors, onSubmit }: AuthEditFormProps) => {
 						{ errors.errors.email && <p className="text-red-500 text-sm">{errors.errors.email}</p> }
           </div>
           <div className="grid gap-1">
-            <Label className="sr-only" htmlFor="bio">
+            <Label className="mt-2 font-bold" htmlFor="bio">
               Bio
             </Label>
             <Textarea
@@ -96,7 +96,7 @@ const AuthEditForm = ({ user, errors, onSubmit }: AuthEditFormProps) => {
             />
           </div>
           <div className="grid gap-1">
-            <Label className="sr-only" htmlFor="skills">
+            <Label className="mt-2 font-bold" htmlFor="skills">
 							Skills
             </Label>
             <Textarea
@@ -111,7 +111,7 @@ const AuthEditForm = ({ user, errors, onSubmit }: AuthEditFormProps) => {
 						<p className="text-sm text-gray-500">Separate each skill with a comma ","</p>
           </div>
           <div className="grid gap-1">
-            <Label className="sr-only" htmlFor="password">
+            <Label className="mt-2 font-bold" htmlFor="password">
               Password
             </Label>
             <Input
@@ -126,7 +126,7 @@ const AuthEditForm = ({ user, errors, onSubmit }: AuthEditFormProps) => {
 						{ errors.errors.password && <p className="text-red-500 text-sm">{errors.errors.password}</p> }
           </div>
 					<div className="grid gap-1">
-						<Label className="sr-only" htmlFor="confirmPassword">
+						<Label className="mt-2 font-bold" htmlFor="confirmPassword">
 							Confirm Password
 						</Label>
 						<Input

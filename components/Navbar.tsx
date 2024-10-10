@@ -50,7 +50,7 @@ const Navbar = ({ username }: NavbarProps) => {
               </Link>
               <DropdownMenu open={isOpen} onOpenChange={setIsOpen}>
                 <DropdownMenuTrigger asChild>
-                  <Button variant="ghost" className="flex items-center space-x-1">
+                  <Button variant="ghost" className="flex items-center space-x-1 font-bold">
                     <span>{username}</span>
                     <ChevronDown className="h-4 w-4" />
                   </Button>
