@@ -45,8 +45,8 @@ export const register = createAsyncThunk(
 
 export const update = createAsyncThunk(
 	'auth/update',
-	async ({ username, email, bio, skills, password }: UpdateFormModel) => {
-		const response = await RequestUpdate({ email, username, bio, skills, password });
+	async ({ username, email, bio, password }: UpdateFormModel) => {
+		const response = await RequestUpdate({ email, username, bio, password });
 		console.log(response)
 		if (response.status !== 'success') {
 			throw new Error(response.message);

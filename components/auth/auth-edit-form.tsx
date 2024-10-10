@@ -24,7 +24,6 @@ const AuthEditForm = ({ user, errors, onSubmit }: AuthEditFormProps) => {
 		"username": user.username,
 		"email": user.email,
 		"bio": user.bio,  
-		"skills": user.skills ? user.skills.join(", ") : "",
 		"password": "",
 		"confirmPassword": "",
 	})
@@ -94,21 +93,6 @@ const AuthEditForm = ({ user, errors, onSubmit }: AuthEditFormProps) => {
               onChange={handleInputChange}
 							value={formData.bio}
             />
-          </div>
-          <div className="grid gap-1">
-            <Label className="mt-2 font-bold" htmlFor="skills">
-							Skills
-            </Label>
-            <Textarea
-              id="skills"
-              placeholder="ex) JavaScript, React, Node.js"
-              autoCapitalize="none"
-              autoCorrect="off"
-              disabled={isLoading}
-              onChange={handleInputChange}
-							value={formData.skills}
-            />
-						<p className="text-sm text-gray-500">Separate each skill with a comma ","</p>
           </div>
           <div className="grid gap-1">
             <Label className="mt-2 font-bold" htmlFor="password">

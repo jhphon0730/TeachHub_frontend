@@ -7,7 +7,6 @@ export interface UserModel {
 	email: string
 	password: string
 	bio: string // can be empty
-	skills: string[] | null // can be null
 	created_at: string
 	updated_at: string
 }
@@ -57,14 +56,13 @@ export type UpdateFormModel = {
 	username: string
 	email: string
 	bio: string
-	skills: string[] | null
 	password: string
 }
 export type ResponseUpdate = null
-export const RequestUpdate = async ({ username, email, bio, skills, password }: UpdateFormModel): Promise<Response<ResponseUpdate>> => {
+export const RequestUpdate = async ({ username, email, bio, password }: UpdateFormModel): Promise<Response<ResponseUpdate>> => {
 	const data = await fetchWithoutAuth('/update', {
 		method: 'PUT',
-		body: JSON.stringify({ username, email, bio, skills, password })
+		body: JSON.stringify({ username, email, bio, password })
 	})
 	return {
 		message: data.message,

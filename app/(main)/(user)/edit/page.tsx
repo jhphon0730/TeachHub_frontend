@@ -22,7 +22,7 @@ const AuthProfileEditPage = () => {
 	if ( !user ) return <Loading />
 
   const handleSubmit = async (data: Record<string, string>) => {
-		const {username, email, bio, skills, password, confirmPassword} = data 
+		const {username, email, bio, password, confirmPassword} = data 
 
 		if (!username || !password || !confirmPassword || !email) {
 			setErrors( { isValid: false, errors: { username: 'required', email: 'required', password: 'required' } })
@@ -55,10 +55,7 @@ const AuthProfileEditPage = () => {
 			return
 		}
 
-		// skills는 배열로 받아오기 때문에, 배열로 변환해서 넣어준다.
-		const skills_list = skills.split(',').map(skill => skill.trim())
-
-		await dispatch(update({ username, email, bio, skills: skills_list, password })).unwrap()
+		await dispatch(update({ username, email, bio, password })).unwrap()
 		.then(async () => {
 			await Swal.fire({
 				icon: 'success',
