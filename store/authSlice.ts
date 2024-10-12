@@ -8,17 +8,20 @@ import {
 interface AuthState {
   user: UserModel | null;
   token: string | null;
+  registrationSuccess: boolean;
+
   loading: boolean;
   error: string | null;
-  registrationSuccess: boolean;
+
 }
 
 const initialState: AuthState = {
   user: null,
   token: null,
+  registrationSuccess: false,
+
   loading: false,
   error: null,
-  registrationSuccess: false,
 };
 
 export const login = createAsyncThunk(
