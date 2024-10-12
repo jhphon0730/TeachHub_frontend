@@ -1,16 +1,16 @@
-import { fetchWithoutAuth } from "@/lib/request";
+import { fetchWithAuth } from "@/lib/request";
 import { Response } from "@/lib/response";
 
 interface InitialDashboardModel {
-	totalStudentCount: number;
-	totalInstructorCount: number;
-	totalCourseCount: number;
+	total_course_count: number;
+	total_instructor_count: number;
+	total_student_count: number;
 }
 
 /** 학생의 정보로 Dashboard 기본 정보를 조회 */
 export interface InitialStudentDashboardModel extends InitialDashboardModel { }
 export const GetInitialStudentDashboard = async (): Promise<Response<InitialStudentDashboardModel>> => {
-	const data = await fetchWithoutAuth('dashboard/student/initial', {
+	const data = await fetchWithAuth('/dashboard/student/initial', {
 		method: 'GET'
 	})
 	return {
@@ -22,10 +22,10 @@ export const GetInitialStudentDashboard = async (): Promise<Response<InitialStud
 
 /** 강사의 정보로 Dashboard 기본 정보를 조회 */
 export interface InitialInstructorDashboardModel extends InitialDashboardModel {
-	myCourseCount: number;
+	my_course_count: number;
 }
 export const GetInitialInstructorDashboard = async (): Promise<Response<InitialInstructorDashboardModel>> => {
-	const data = await fetchWithoutAuth('dashboard/instructor/initial', {
+	const data = await fetchWithAuth('/dashboard/instructor/initial', {
 		method: 'GET'
 	})
 	return {
