@@ -1,7 +1,6 @@
 import React from 'react'
-import { BookOpen, Users, Award, Clock } from 'lucide-react'
+import { Users } from 'lucide-react'
 
-import Loading from "@/components/Loading"
 import { Button } from "@/components/ui/button"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
@@ -11,55 +10,12 @@ import { InitialStudentDashboardModel, InitialInstructorDashboardModel
 
 interface DashboardInfoProps {
 	role: "student" | "instructor" | "admin"
-	total_courses: number
-	total_students: number
-	total_instructors: number
-	initial_student?: InitialStudentDashboardModel
-	initial_instructor?: InitialInstructorDashboardModel
+	courses: []
 }
 
-const DashboardInfo = ({ role, total_courses, total_students, total_instructors, initial_student, initial_instructor }: DashboardInfoProps) => {
+const DashboardInfo = ({ role, courses }: DashboardInfoProps) => {
 	return (
 		<React.Fragment>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
-        <Card>
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Total Courses</CardTitle>
-            <BookOpen className="h-4 w-4 text-muted-foreground" />
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold">{total_courses}</div>
-          </CardContent>
-        </Card>
-        <Card>
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Total Instructor</CardTitle>
-            <BookOpen className="h-4 w-4 text-muted-foreground" />
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold">{total_instructors}</div>
-          </CardContent>
-        </Card>
-        <Card>
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Total Students</CardTitle>
-            <Users className="h-4 w-4 text-muted-foreground" />
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold">{total_students}</div>
-          </CardContent>
-        </Card>
-				{ role == "instructor" && <Card>
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">My Course Count</CardTitle>
-            <Users className="h-4 w-4 text-muted-foreground" />
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold">{initial_instructor?.my_course_count}</div>
-          </CardContent>
-        </Card> }
-      </div>
-      
       <Tabs defaultValue="all-courses" className="space-y-4">
         <TabsList>
           <TabsTrigger value="all-courses">All Courses</TabsTrigger>
