@@ -25,6 +25,7 @@ export const login = createAsyncThunk(
   'auth/login',
   async ({ username, password }: LoginFormModel) => {
     const response = await RequestLogin({ username, password });
+		console.log(response)
 		if (response.status !== 'success') {
 			throw new Error(response.message);
 		}

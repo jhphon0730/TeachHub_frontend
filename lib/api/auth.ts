@@ -7,6 +7,7 @@ export interface UserModel {
 	email: string
 	password: string
 	bio: string // can be empty
+	role: 'student' | 'instructor' | 'admin' /* string */
 	created_at: string
 	updated_at: string
 }
