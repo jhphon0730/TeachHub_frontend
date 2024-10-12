@@ -39,9 +39,7 @@ const Navbar = ({ username }: NavbarProps) => {
     <nav className="bg-white shadow">
       <div className="container mx-auto px-6 py-3">
         <div className="flex justify-between items-center">
-          <Link href="/" className="text-xl font-semibold">
-            My App
-          </Link>
+          <Link href="/" className="text-xl font-semibold">흠냐링</Link>
 
           {username ? (
             <div className="flex items-center space-x-4">

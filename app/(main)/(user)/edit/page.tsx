@@ -76,7 +76,7 @@ const AuthProfileEditPage = () => {
   }
 
 	return (
-		<div className="sm:w-[350px] mx-auto">
+		<div className="mx-auto flex w-full flex-col justify-center space-y-6 sm:w-[350px] p-3">
 			<div className="flex flex-col space-y-2 text-center">
 				<h1 className="text-2xl font-semibold tracking-tight">Update Your Profile</h1>
 			</div>
