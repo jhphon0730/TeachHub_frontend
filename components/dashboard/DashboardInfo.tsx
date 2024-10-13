@@ -23,8 +23,8 @@ const DashboardInfo = ({ role, courses }: DashboardInfoProps) => {
 			</TabsList>
 
 			<TabsContent value="all-courses" className="space-y-4">
-				{courses ? courses.map((course) => (
-					<Card key={course.id}>
+				{courses ? courses.map((course, index) => (
+					<Card key={index}>
 						<CardHeader>
 							<CardTitle>{course.title}</CardTitle>
 							<CardDescription>{new Date(course.created_at).toLocaleString()}</CardDescription>

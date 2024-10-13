@@ -13,7 +13,7 @@ import { AppDispatch, RootState } from '@/store';
 import { getInitialStudentDashboard, getInitialInstructorDashboard } from '@/store/dashboardSlice';
 import { 
 	CourseModel,
-	GetCourseByInstructorID,
+	GetCourseByInstructorID, GetCourseByStudentID,
 } from '@/lib/api/dashboard'
 
 const DashboardPage = () => {
@@ -31,6 +31,7 @@ const DashboardPage = () => {
 
 		if (user.role === 'student') {
 			dispatch(getInitialStudentDashboard());
+			getCoursesByStudentID()
 		} else if (user.role === 'instructor') {
 			dispatch(getInitialInstructorDashboard());
 			getCourseByInstructorID()
@@ -50,7 +51,19 @@ const DashboardPage = () => {
 			return
 		}
 		setCourses(() => res.data)
-		console.log(res.data)
+	}
+
+	const getCoursesByStudentID = async (): Promise<void> => {
+		const res = await GetCourseByStudentID()
+		if (res.status != 'success') {
+			await Swal.fire({
+				icon: 'error',
+				title: 'Failed to get courses',
+				text: res.message,
+			})
+			return
+		}
+		setCourses(() => res.data)
 	}
 
   return (
@@ -62,7 +75,8 @@ const DashboardPage = () => {
 						role={user.role}
 						total_courses={initial_student.total_course_count}
 						total_students={initial_student.total_student_count}
-						total_instructors={initial_student.total_instructor_count} />
+						total_instructors={initial_student.total_instructor_count} 
+						my_course_count={courses && courses.length || 0}/>
 					<DashboardInfo 
 						role={user.role} 
 						courses={courses} /> 

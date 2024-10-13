@@ -55,3 +55,15 @@ export const GetCourseByInstructorID = async (instructor_id: number): Promise<Re
 		status: data.status
 	}
 }
+
+/** 학생 속한 강좌/강의들 조회 */
+export const GetCourseByStudentID = async (): Promise<Response<CourseModel[] | null>> => {
+	const data = await fetchWithAuth(`/course/student`, {
+		method: 'GET'
+	})
+	return {
+		message: data.message,
+		data: data.data,
+		status: data.status
+	}
+}
