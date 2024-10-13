@@ -76,7 +76,7 @@ const DashboardPage = () => {
 						total_courses={initial_student.total_course_count}
 						total_students={initial_student.total_student_count}
 						total_instructors={initial_student.total_instructor_count} 
-						my_course_count={courses && courses.length || 0}/>
+						my_course_count={initial_student.my_course_count}/>
 					<DashboardInfo 
 						role={user.role} 
 						courses={courses} /> 
