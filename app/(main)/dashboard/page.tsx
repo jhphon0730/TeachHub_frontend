@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import Loading from "@/components/Loading"
 import DashboardInfo from "@/components/dashboard/DashboardInfo"
+import CreateCourseModal from "@/components/dashboard/CreateCourseModal"
 import DashboardInfoHeader from "@/components/dashboard/DashboardInfoHeader"
 
 import { AppDispatch, RootState } from '@/store';
@@ -40,6 +41,7 @@ const DashboardPage = () => {
 
 	if ( !user ) return <Loading />
 
+	/* 강사 ID로 강의/강좌 조회 */
 	const getCourseByInstructorID = async (): Promise<void> => {
 		const res = await GetCourseByInstructorID(user.id)
 		if (res.status != 'success') {
@@ -53,6 +55,7 @@ const DashboardPage = () => {
 		setCourses(() => res.data)
 	}
 
+	/* 학생 ID로 강의/강좌 조회 */
 	const getCoursesByStudentID = async (): Promise<void> => {
 		const res = await GetCourseByStudentID()
 		if (res.status != 'success') {
@@ -85,6 +88,7 @@ const DashboardPage = () => {
 
 			{ user.role == "instructor" && initial_instructor && (
 				<React.Fragment>
+					<CreateCourseModal />
 					<DashboardInfoHeader
 						role={user.role}
 						total_courses={initial_instructor.total_course_count}

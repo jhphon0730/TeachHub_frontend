@@ -7,7 +7,6 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 
 import { 
 	CourseModel,
-	InitialStudentDashboardModel, InitialInstructorDashboardModel 
 } from '@/lib/api/dashboard'
 
 interface DashboardInfoProps {
