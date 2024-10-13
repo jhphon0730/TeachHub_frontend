@@ -46,7 +46,7 @@ export const GetInitialInstructorDashboard = async (): Promise<Response<InitialI
 
 /** 사용가 강사라면 본인이 갖고 있는 강의들 조회 */
 export const GetCourseByInstructorID = async (instructor_id: number): Promise<Response<CourseModel[] | null>> => {
-	const data = await fetchWithAuth(`/course/instructor?instructor_id=${instructor_id}`, {
+	const data = await fetchWithAuth(`/enrollment/instructor?instructor_id=${instructor_id}`, {
 		method: 'GET'
 	})
 	return {
@@ -58,7 +58,7 @@ export const GetCourseByInstructorID = async (instructor_id: number): Promise<Re
 
 /** 학생 속한 강좌/강의들 조회 */
 export const GetCourseByStudentID = async (): Promise<Response<CourseModel[] | null>> => {
-	const data = await fetchWithAuth(`/course/student`, {
+	const data = await fetchWithAuth(`/enrollment/student`, {
 		method: 'GET'
 	})
 	return {
