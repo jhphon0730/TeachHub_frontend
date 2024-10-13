@@ -11,12 +11,18 @@ import DashboardInfoHeader from "@/components/dashboard/DashboardInfoHeader"
 
 import { AppDispatch, RootState } from '@/store';
 import { getInitialStudentDashboard, getInitialInstructorDashboard } from '@/store/dashboardSlice';
+import { 
+	CourseModel,
+	GetCourseByInstructorID,
+} from '@/lib/api/dashboard'
 
 const DashboardPage = () => {
 	const router = useRouter()
 	const dispatch = useDispatch<AppDispatch>()
   const user = useSelector((state: RootState) => state.auth.user)
 	const { initial_student, initial_instructor, loading, error } = useSelector((state: RootState) => state.dashboard)
+
+	const [courses, setCourses] = React.useState<CourseModel[] | null>(null)
 
   React.useEffect(() => {
     if (!user) {
@@ -27,10 +33,25 @@ const DashboardPage = () => {
 			dispatch(getInitialStudentDashboard());
 		} else if (user.role === 'instructor') {
 			dispatch(getInitialInstructorDashboard());
+			getCourseByInstructorID()
 		}
   }, [user, dispatch]);
 
 	if ( !user ) return <Loading />
+
+	const getCourseByInstructorID = async (): Promise<void> => {
+		const res = await GetCourseByInstructorID(user.id)
+		if (res.status != 'success') {
+			await Swal.fire({
+				icon: 'error',
+				title: 'Failed to get courses',
+				text: res.message,
+			})
+			return
+		}
+		setCourses(() => res.data)
+		console.log(res.data)
+	}
 
   return (
     <div className="container mx-auto py-8 px-4">
@@ -44,7 +65,7 @@ const DashboardPage = () => {
 						total_instructors={initial_student.total_instructor_count} />
 					<DashboardInfo 
 						role={user.role} 
-						courses={[]} /> 
+						courses={courses} /> 
 				</React.Fragment>
 				)}
 
@@ -58,7 +79,7 @@ const DashboardPage = () => {
 						my_course_count={initial_instructor.my_course_count} />
 					<DashboardInfo 
 						role={user.role}
-						courses={[]} /> 
+						courses={courses} /> 
 				</React.Fragment>
 			)}
 			{ loading && <Loading /> }
