@@ -15,6 +15,7 @@ import { getInitialStudentDashboard, getInitialInstructorDashboard } from '@/sto
 import { 
 	CourseModel,
 	GetCourseByInstructorID, GetCourseByStudentID,
+	CreateCourse,
 } from '@/lib/api/dashboard'
 
 const DashboardPage = () => {
@@ -31,10 +32,8 @@ const DashboardPage = () => {
 		}
 
 		if (user.role === 'student') {
-			dispatch(getInitialStudentDashboard());
 			getCoursesByStudentID()
 		} else if (user.role === 'instructor') {
-			dispatch(getInitialInstructorDashboard());
 			getCourseByInstructorID()
 		}
   }, [user, dispatch]);
@@ -43,6 +42,16 @@ const DashboardPage = () => {
 
 	/* 강사 ID로 강의/강좌 조회 */
 	const getCourseByInstructorID = async (): Promise<void> => {
+		const initial_res = await dispatch(getInitialInstructorDashboard()).unwrap();
+		if (initial_res.status != 'success') {
+			await Swal.fire({
+				icon: 'error',
+				title: 'Failed to get initial student dashboard',
+				text: initial_res.message,
+			})
+			router.refresh()
+			return
+		}
 		const res = await GetCourseByInstructorID(user.id)
 		if (res.status != 'success') {
 			await Swal.fire({
@@ -57,6 +66,16 @@ const DashboardPage = () => {
 
 	/* 학생 ID로 강의/강좌 조회 */
 	const getCoursesByStudentID = async (): Promise<void> => {
+		const initial_res = await dispatch(getInitialStudentDashboard()).unwrap();
+		if (initial_res.status != 'success') {
+			await Swal.fire({
+				icon: 'error',
+				title: 'Failed to get initial student dashboard',
+				text: initial_res.message,
+			})
+			router.refresh()
+			return
+		}
 		const res = await GetCourseByStudentID()
 		if (res.status != 'success') {
 			await Swal.fire({
@@ -67,6 +86,28 @@ const DashboardPage = () => {
 			return
 		}
 		setCourses(() => res.data)
+	}
+
+	/* 강사가 새로운 강의/강좌를 추가 */
+	const createNewCourse = async (data: Record<string, string>): Promise<void> => {
+		const res = await CreateCourse(data['title'], data['description'])
+		if (res.status != 'success') {
+			await Swal.fire({
+				icon: 'error',
+				title: 'Failed create courses',
+				text: res.message
+			})
+			router.refresh()
+		}
+		await Swal.fire({
+			icon: 'success',
+			title: 'Success',
+			text: 'Successfully created a new course',
+			timer: 1500,
+			showConfirmButton: false,
+		})
+		getCourseByInstructorID()
+		return
 	}
 
   return (
@@ -88,7 +129,7 @@ const DashboardPage = () => {
 
 			{ user.role == "instructor" && initial_instructor && (
 				<React.Fragment>
-					<CreateCourseModal />
+					<CreateCourseModal createHandler={createNewCourse}/>
 					<DashboardInfoHeader
 						role={user.role}
 						total_courses={initial_instructor.total_course_count}

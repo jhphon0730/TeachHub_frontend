@@ -44,6 +44,19 @@ export const GetInitialInstructorDashboard = async (): Promise<Response<InitialI
 	}
 }
 
+/** 강사가 새로운 강의를 생성 */
+export const CreateCourse = async (title: string, description: string): Promise<Response<null>> => {
+	const data = await fetchWithAuth('/course', {
+		method: 'POST',
+		body: JSON.stringify({ title, description })
+	})
+	return {
+		message: data.message,
+		data: data.data,
+		status: data.status
+	}
+}
+
 /** 사용가 강사라면 본인이 갖고 있는 강의들 조회 */
 export const GetCourseByInstructorID = async (instructor_id: number): Promise<Response<CourseModel[] | null>> => {
 	const data = await fetchWithAuth(`/enrollment/instructor?instructor_id=${instructor_id}`, {
