@@ -37,7 +37,7 @@ const DashboardPage = () => {
 		} else if (user.role === 'instructor') {
 			getCourseByInstructorID()
 		}
-  }, [user, dispatch]);
+  }, [user?.role]);
 
 	if ( !user ) return <Loading />
 

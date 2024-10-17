@@ -16,7 +16,7 @@ const MainLayout = ({ children }: MainLayoutProps) => {
 	const user = useSelector((state: RootState) => state.auth).user;
 
 	React.useEffect(() => {
-		if (!user) {
+		if (!user || !localStorage.getItem('token') || !localStorage.getItem('user')) {
 			router.push('/login');
 		}
 	}, [user])
