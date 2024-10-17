@@ -42,8 +42,8 @@ const CreateCourseModal = ({ createHandler }: CreateCourseModalProps) => {
 	}
 
 	/* Add Course Handler */
-	const submitHandler = async (): Promise<void> => {
-		await createHandler(newCourse)
+	const submitHandler = (): void => {
+		createHandler(newCourse)
 		handleClose()
 	}
 

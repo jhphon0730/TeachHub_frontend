@@ -17,6 +17,7 @@ import {
 	CourseModel,
 	GetCourseByInstructorID, GetCourseByStudentID,
 	CreateCourse,
+	AddStudentToCourse,
 } from '@/lib/api/dashboard'
 
 const DashboardPage = () => {
@@ -128,7 +129,7 @@ const DashboardPage = () => {
 			icon: 'success',
 			title: 'Success',
 			text: 'Successfully created a new course',
-			timer: 1500,
+			timer: 1000,
 			showConfirmButton: false,
 		})
 		getCourseByInstructorID()
@@ -137,7 +138,23 @@ const DashboardPage = () => {
 
 	/* 학생을 특정 강의/강좌에 추가 */
 	const addStudentToCourse = async (data: Record<string, string>): Promise<void> => {
-		console.log(data)
+		const res = await AddStudentToCourse(parseInt(data['course_id']), data['student_username'])
+		if (res.status != 'success') {
+			await Swal.fire({
+				icon: 'error',
+				title: 'Failed to add student to course',
+				text: res.message,
+				timer: 1000,
+			})
+			return
+		}
+		await Swal.fire({
+			icon: 'success',
+			title: 'Success',
+			text: 'Successfully added student to course',
+			timer: 1000,
+		})
+		getCourseByInstructorID()
 	}
 
   return (

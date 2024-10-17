@@ -54,8 +54,8 @@ const AddStudentToCourseModal = ({addStudentToCourseHandler, getCourseIDList}: A
 		}))
 	}
 
-	const submitHandler = async (): Promise<void> => {
-		await addStudentToCourseHandler(addData)
+	const submitHandler = (): void => {
+		addStudentToCourseHandler(addData)
 		handleClose()
 	}
 
