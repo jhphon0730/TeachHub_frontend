@@ -80,3 +80,16 @@ export const GetCourseByStudentID = async (): Promise<Response<CourseModel[] | n
 		status: data.status
 	}
 }
+
+/** 강사가 학생<Username>으로 강의/강좌에 학생을 등록 */
+export const AddStudentToCourse = async (course_id: number, student_username: string): Promise<Response<null>> => {
+	const data = await fetchWithAuth(`/enrollment/student`, {
+		method: 'POST',
+		body: JSON.stringify({ course_id, student_username })
+	})
+	return {
+		message: data.message,
+		data: data.data,
+		status: data.status
+	}
+}

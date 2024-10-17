@@ -12,13 +12,13 @@ import { Icons } from "@/components/ui/icons"
 import { UserModel } from "@/lib/api/auth"
 import { AuthUpdateFormError } from "@/lib/utils"
 
-interface AuthEditFormProps {
+interface UserEditFormProps {
 	user: UserModel
 	errors: AuthUpdateFormError
   onSubmit: (data: Record<string, string>) => Promise<void>
 }
 
-const AuthEditForm = ({ user, errors, onSubmit }: AuthEditFormProps) => {
+const UserEditForm = ({ user, errors, onSubmit }: UserEditFormProps) => {
   const [isLoading, setIsLoading] = useState<boolean>(false)
   const [formData, setFormData] = useState<Record<string, string>>({
 		"username": user.username,
@@ -136,4 +136,4 @@ const AuthEditForm = ({ user, errors, onSubmit }: AuthEditFormProps) => {
   )
 }
 
-export default AuthEditForm
+export default UserEditForm

@@ -7,8 +7,9 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import Loading from "@/components/Loading"
 import DashboardInfo from "@/components/dashboard/DashboardInfo"
-import CreateCourseModal from "@/components/dashboard/CreateCourseModal"
 import DashboardInfoHeader from "@/components/dashboard/DashboardInfoHeader"
+import CreateCourseModal from "@/components/dashboard/course/CreateCourseModal"
+import AddStudentToCourseModal from "@/components/dashboard/course/AddStudentToCourseModal"
 
 import { AppDispatch, RootState } from '@/store';
 import { getInitialStudentDashboard, getInitialInstructorDashboard } from '@/store/dashboardSlice';
@@ -88,6 +89,30 @@ const DashboardPage = () => {
 		setCourses(() => res.data)
 	}
 
+	/* Course ( 강의 중에서 id만 배열로 추출 ) */
+	const getCourseIDList = (): {label: string, value: string}[] | null => {
+		if (!courses || !courses.length) {
+			Swal.fire({
+				icon: 'error',
+				title: 'No courses found',
+				text: 'Please create a course first',
+			})
+			return null
+		}
+
+		if (user.role !== 'instructor') {
+			Swal.fire({
+				icon: 'error',
+				title: 'Invalid role',
+				text: 'Only instructors can create courses',
+			})
+			return null
+		}
+
+		const course_id_list = courses.map((course) => { return { label: course.title, value: course.id.toString() } })
+		return course_id_list
+	}
+
 	/* 강사가 새로운 강의/강좌를 추가 */
 	const createNewCourse = async (data: Record<string, string>): Promise<void> => {
 		const res = await CreateCourse(data['title'], data['description'])
@@ -110,6 +135,11 @@ const DashboardPage = () => {
 		return
 	}
 
+	/* 학생을 특정 강의/강좌에 추가 */
+	const addStudentToCourse = async (data: Record<string, string>): Promise<void> => {
+		console.log(data)
+	}
+
   return (
     <div className="container mx-auto py-8 px-4">
       <h1 className="text-3xl font-bold mb-8">Welcome to TeachHub, {user.role}!</h1>
@@ -129,7 +159,16 @@ const DashboardPage = () => {
 
 			{ user.role == "instructor" && initial_instructor && (
 				<React.Fragment>
-					<CreateCourseModal createHandler={createNewCourse}/>
+					<div
+						// grid를 사용하여 cols 는 2로 정하고, 화면이 작아지면 열이 1개만 보이도록 함 
+						className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 mb-4"
+					>
+						<CreateCourseModal 
+							createHandler={createNewCourse} />
+						<AddStudentToCourseModal 
+							addStudentToCourseHandler={addStudentToCourse}
+							getCourseIDList={getCourseIDList}/>
+					</div>
 					<DashboardInfoHeader
 						role={user.role}
 						total_courses={initial_instructor.total_course_count}

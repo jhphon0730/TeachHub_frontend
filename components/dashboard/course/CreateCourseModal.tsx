@@ -49,9 +49,8 @@ const CreateCourseModal = ({ createHandler }: CreateCourseModalProps) => {
 
 	return (
 		<React.Fragment>
-			<Button variant="outline" className="mb-4" onClick={handleOpen}>
-				<PlusCircle size={16} className="me-2"/> 
-				Create a new course
+			<Button variant="outline" onClick={handleOpen}>
+				CREATE A NEW COURSE
 			</Button>
 
 			<Dialog open={isOpen} onOpenChange={setIsOpen}>

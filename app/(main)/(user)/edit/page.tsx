@@ -6,7 +6,7 @@ import { useRouter } from 'next/navigation';
 import { useDispatch, useSelector } from 'react-redux';
 
 import Loading from "@/components/Loading"
-import AuthEditForm from "@/components/auth/auth-edit-form"
+import UserEditForm from "@/components/user/user-edit-form"
 
 import { update } from '@/store/authSlice'
 import { AppDispatch, RootState } from '@/store';
@@ -80,7 +80,7 @@ const AuthProfileEditPage = () => {
 			<div className="flex flex-col space-y-2 text-center">
 				<h1 className="text-2xl font-semibold tracking-tight">Update Your Profile</h1>
 			</div>
-			<AuthEditForm 
+			<UserEditForm 
 				user={user}
 				errors={errors}
 				onSubmit={handleSubmit} />
