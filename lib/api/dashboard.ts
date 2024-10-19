@@ -8,6 +8,7 @@ export interface CourseModel {
 	description: string;
 	created_at: string;
 	updated_at: string;
+	student_count: number;
 }
 
 interface InitialDashboardModel {

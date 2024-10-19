@@ -33,7 +33,7 @@ const DashboardInfo = ({ role, courses }: DashboardInfoProps) => {
 							<div className="mt-4 flex justify-between items-center">
 								<div className="flex items-center">
 									<Users className="mr-2 h-4 w-4 text-muted-foreground" />
-									<span className="text-sm text-muted-foreground">/* Here Student Count ( Update Backend ) */</span>
+									<span className="text-sm text-muted-foreground">{course.student_count}</span>
 								</div>
 								<Button variant="outline" size="sm">Continue</Button>
 							</div>
