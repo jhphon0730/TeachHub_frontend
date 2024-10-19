@@ -1,6 +1,7 @@
 import { BookOpen, Users, Award, Clock } from 'lucide-react'
 
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
+import RemoveStudentToCourseModal from "@/components/dashboard/course/RemoveStudentToCourseModal";
 
 interface DashboardInfoHeaderProps {
 	role: "student" | "instructor" | "admin"

@@ -177,7 +177,6 @@ const DashboardPage = () => {
 			{ user.role == "instructor" && initial_instructor && (
 				<React.Fragment>
 					<div
-						// grid를 사용하여 cols 는 2로 정하고, 화면이 작아지면 열이 1개만 보이도록 함 
 						className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 mb-4"
 					>
 						<CreateCourseModal 
