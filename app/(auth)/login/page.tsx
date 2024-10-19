@@ -6,7 +6,7 @@ import { useRouter } from 'next/navigation';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { Icons } from "@/components/ui/icons";
-import { AuthForm } from "@/components/auth/auth-form";
+import { AuthForm } from "@/components/auth/AuthForm";
 
 import { login } from '@/store/authSlice';
 import { validateLoginForm } from "@/lib/utils"
