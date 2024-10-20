@@ -77,7 +77,7 @@ const AddStudentToCourseModal = ({addStudentToCourseHandler, getCourseIDList}: A
 					</DialogHeader>
 					<div className="grid gap-4 py-4">
 						<div className="grid grid-cols-4 items-center gap-4">
-							<Label htmlFor="student_username" className="text-start">Student Name</Label>
+							<Label htmlFor="student_username" className="text-center">Student Name</Label>
 							<Input
 								type="text"
 								id="student_username"
@@ -88,7 +88,7 @@ const AddStudentToCourseModal = ({addStudentToCourseHandler, getCourseIDList}: A
 								onChange={handleChange}/>
 						</div>
 						<div className="grid grid-cols-4 items-center gap-4">
-							<Label htmlFor="course_id" className="text-start"> Select Course </Label>
+							<Label htmlFor="course_id" className="text-center"> Select Course </Label>
 							{ course_id_list && course_id_list.length !== 0 && 
 								<div className="col-span-3">
 									<Select

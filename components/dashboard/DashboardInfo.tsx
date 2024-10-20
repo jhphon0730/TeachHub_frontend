@@ -2,6 +2,7 @@ import React from 'react'
 import { Users } from 'lucide-react'
 
 import { Button } from "@/components/ui/button"
+import RemoveStudentToCourseModal from './course/RemoveStudentToCourseModal'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 
@@ -37,7 +38,13 @@ const DashboardInfo = ({ role, courses }: DashboardInfoProps) => {
 										{course.student_count}
 									</span>
 								</div>
-								<Button variant="outline" size="sm">Continue</Button>
+								<div className="space-x-2">
+									<Button variant="default" size="sm">Continue</Button>
+									<RemoveStudentToCourseModal 
+										course_id={course.id}
+										course_name={course.title}
+									/>
+								</div>
 							</div>
 						</CardContent>
 					</Card>

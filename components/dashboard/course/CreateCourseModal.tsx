@@ -63,7 +63,7 @@ const CreateCourseModal = ({ createHandler }: CreateCourseModalProps) => {
 					</DialogHeader>
 					<div className="grid gap-4 py-4">
 						<div className="grid grid-cols-4 items-center gap-4">
-							<Label htmlFor="course-title" className="text-start">
+							<Label htmlFor="course-title" className="text-center">
 								Title
 							</Label>
 							<Input
@@ -75,7 +75,7 @@ const CreateCourseModal = ({ createHandler }: CreateCourseModalProps) => {
 							/>
 						</div>
 						<div className="grid grid-cols-4 items-center gap-4">
-							<Label htmlFor="course-description" className="text-start">
+							<Label htmlFor="course-description" className="text-center">
 								Description
 							</Label>
 							<Textarea
