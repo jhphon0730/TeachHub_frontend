@@ -94,3 +94,16 @@ export const AddStudentToCourse = async (course_id: number, student_username: st
 		status: data.status
 	}
 }
+
+/** 학생 수강신청 취소 */
+export const RemoveStudentToCourse = async (course_id: number, student_name: string): Promise<Response<null>> => {
+	const data = await fetchWithAuth(`/course/student`, {
+		method: 'DELETE',
+		body: JSON.stringify({ course_id, student_name })
+	})
+	return {
+		message: data.message,
+		data: data.data,
+		status: data.status
+	}
+}
