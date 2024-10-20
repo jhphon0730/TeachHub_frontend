@@ -15,9 +15,7 @@ import { AppDispatch, RootState } from '@/store';
 const AuthLoginPage = () => {
 	const router = useRouter();
 	const dispatch = useDispatch<AppDispatch>();
-	const { loading, error, user, token } = useSelector((state: RootState) => state.auth);
-
-	const [errors, setErrors] = React.useState<string[]>();
+	const { loading, user, token } = useSelector((state: RootState) => state.auth);
 
 	React.useEffect(() => {
 		if (user && token) {
@@ -29,7 +27,6 @@ const AuthLoginPage = () => {
 		const { username, password } = data
 
 		if (!username || !password) {
-			setErrors(["Please fill in all fields"])
 			await Swal.fire({
 				icon: 'error',
 				title: 'Invalid form data',
@@ -38,9 +35,8 @@ const AuthLoginPage = () => {
 			return
 		}
 
-		const { isValid, errors } = validateLoginForm(username, password)
+		const { isValid } = validateLoginForm(username, password)
 		if (!isValid) {
-			setErrors(errors)
 			await Swal.fire({
 				icon: 'error',
 				title: 'Invalid form data',
@@ -58,7 +54,6 @@ const AuthLoginPage = () => {
 			})
 		})
 		.catch((error) => {
-			setErrors([error.message])
 			Swal.fire({
 				icon: 'error',
 				title: 'Login failed',
@@ -78,12 +73,6 @@ const AuthLoginPage = () => {
 				</p>
 			</div>
 			<AuthForm type="login" loading={loading} onSubmit={handleSubmit} />
-			{/*
-			{ error && <p className="text-red-500 text-sm text-center">{error}</p> }
-			{ errors && errors.map((error, index) => (
-				<p key={index} className="text-red-500 text-sm text-center">{error}</p>
-			)) }
-			*/}
 		</React.Fragment>
   )
 }

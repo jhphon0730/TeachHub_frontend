@@ -20,12 +20,14 @@ const persistConfig = {
 };
 
 // Reducer에 persist 적용
-const persistedReducer = persistReducer(persistConfig, authReducer);
+// persist란 앱을 새로고침해도 데이터가 유지되도록 하는 기능
+const authPersistedReducer = persistReducer(persistConfig, authReducer);
+const dashboardPersistedReducer = persistReducer(persistConfig, dashboardReducer);
 
 export const store = configureStore({
   reducer: {
-    auth: persistedReducer,  // Persisted Reducer 사용
-		dashboard: dashboardReducer,
+    auth: authPersistedReducer,  // Persisted Reducer 사용
+		dashboard: dashboardPersistedReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
