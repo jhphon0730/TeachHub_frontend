@@ -15,7 +15,7 @@ interface DashboardInfoProps {
 	courses: CourseModel[] | null
 }
 
-const DashboardInfo = ({ role, courses }: DashboardInfoProps) => {
+const DashboardInfo = ({ courses }: DashboardInfoProps) => {
 	return (
 		<Tabs defaultValue="all-courses" className="space-y-4">
 			<TabsList>

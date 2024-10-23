@@ -160,6 +160,8 @@ const DashboardPage = () => {
   return (
     <div className="container mx-auto py-8 px-4">
       <h1 className="text-3xl font-bold mb-8">Welcome to TeachHub, {user.role}!</h1>
+
+			{/* STUDENT UI */}
 			{ user.role == "student" && initial_student && (
 				<React.Fragment>
 					<DashboardInfoHeader
@@ -174,6 +176,7 @@ const DashboardPage = () => {
 				</React.Fragment>
 				)}
 
+			{/* INSTRUCTOR UI */}
 			{ user.role == "instructor" && initial_instructor && (
 				<React.Fragment>
 					<div
