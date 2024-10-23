@@ -95,6 +95,22 @@ export const AddStudentToCourse = async (course_id: number, student_username: st
 	}
 }
 
+/** 강의 ID로 강의를 조회중인 학생 조회 */
+export interface IGetStudentByCourseID {
+	user_id: number;
+	user_username: string;
+}
+export const GetStudentByCourseID = async (course_id: number): Promise<Response<IGetStudentByCourseID[] | null>> => {
+	const data = await fetchWithAuth(`/course/student?course_id=${course_id}`, {
+		method: 'GET',
+	})
+	return {
+		message: data.message,
+		data: data.data,
+		status: data.status
+	}
+}
+
 /** 학생 수강신청 취소 */
 export const RemoveStudentToCourse = async (course_id: number, student_username: string): Promise<Response<null>> => {
 	const data = await fetchWithAuth(`/course/student`, {

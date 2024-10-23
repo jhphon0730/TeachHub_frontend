@@ -17,8 +17,6 @@ const RegisterPage = () => {
 	const dispatch = useDispatch<AppDispatch>();
 	const { loading, error, registrationSuccess } = useSelector((state: RootState) => state.auth);
 
-	const [errors, setErrors] = React.useState<string[]>();
-
 	React.useEffect(() => {
 		if (registrationSuccess) {
 			router.push('/login');
@@ -30,7 +28,6 @@ const RegisterPage = () => {
 		const { username, email, password, confirmPassword } = data
 
 		if (!username || !email || !password || !confirmPassword) {
-			setErrors(["Please fill in all fields"])
 			await Swal.fire({
 				icon: 'error',
 				title: 'Invalid form data',
@@ -40,7 +37,6 @@ const RegisterPage = () => {
 		}
 
 		if (password !== confirmPassword) {
-			setErrors(["Passwords do not match"])
 			await Swal.fire({
 				icon: 'error',
 				title: 'Passwords do not match',
@@ -51,7 +47,6 @@ const RegisterPage = () => {
 
 		const { isValid, errors } = validateRegisterForm(username, password, email)
 		if (!isValid) {
-			setErrors(errors)
 			await Swal.fire({
 				icon: 'error',
 				title: 'Invalid form data',
@@ -93,12 +88,6 @@ const RegisterPage = () => {
 				loading={loading}
 				onSubmit={handleSubmit} 
 			/>
-			{/*
-			{ error && <p className="text-red-500 text-sm text-center">{error}</p> }
-			{ errors && errors.map((error, index) => (
-				<p key={index} className="text-red-500 text-sm text-center">{error}</p>
-			)) }
-			*/}
 		</React.Fragment>
   )
 }
