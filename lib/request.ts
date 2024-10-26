@@ -37,6 +37,12 @@ export const fetchWithAuth = async (url: string, options: FetchOptions = {} ) =>
     },
   };
 
-  const response = await fetch("http://localhost:8080" + url, mergedOptions);
-  return await response.json();
+	try {
+		const response = await fetch("http://localhost:8080" + url, mergedOptions);
+		return await response.json();
+	} catch (error) {
+		alert('로그인이 필요합니다.');
+		console.error(error);
+	}
 };
+

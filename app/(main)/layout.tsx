@@ -17,7 +17,6 @@ const MainLayout = ({ children }: MainLayoutProps) => {
 
 	// 페이지 이동 시에 확인 해주는 backend 추가 예정
 	React.useEffect(() => {
-		console.log(localStorage.getItem('token'))
 		if (!user || !localStorage.getItem('token') || !localStorage.getItem('user')) {
 			router.push('/login');
 		}
