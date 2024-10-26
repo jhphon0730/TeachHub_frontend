@@ -8,7 +8,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Icons } from "@/components/ui/icons";
 import { AuthForm } from "@/components/auth/AuthForm";
 
-import { login } from '@/store/authSlice';
+import { login, logout } from '@/store/authSlice';
 import { validateLoginForm } from "@/lib/utils"
 import { AppDispatch, RootState } from '@/store';
 
@@ -18,10 +18,8 @@ const AuthLoginPage = () => {
 	const { loading, user, token } = useSelector((state: RootState) => state.auth);
 
 	React.useEffect(() => {
-		if (user && token) {
-			router.push('/dashboard');
-		}
-	}, [router, dispatch, user, token]);
+		dispatch(logout());
+	}, []);
 
   const handleSubmit = async (data: Record<string, string>) => {
 		const { username, password } = data
@@ -52,6 +50,7 @@ const AuthLoginPage = () => {
 				title: 'Login successful',
 				text: 'You have successfully logged in',
 			})
+			router.push('/dashboard')
 		})
 		.catch((error) => {
 			Swal.fire({

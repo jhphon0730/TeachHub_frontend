@@ -13,19 +13,21 @@ interface MainLayoutProps extends React.HTMLAttributes<HTMLDivElement> {
 
 const MainLayout = ({ children }: MainLayoutProps) => {
 	const router = useRouter();
-	const user = useSelector((state: RootState) => state.auth).user;
+	const auth = useSelector((state: RootState) => state.auth);
 
 	// 페이지 이동 시에 확인 해주는 backend 추가 예정
 	React.useEffect(() => {
-		if (!user || !localStorage.getItem('token') || !localStorage.getItem('user')) {
-			router.push('/login');
+		const storedUser = JSON.parse(localStorage.getItem('user') || 'null');
+		const storedToken = localStorage.getItem('token');
+		if (!auth.user || !storedUser || !storedToken) {
+				router.push('/login');
 		}
-	}, [user])
+	}, [auth, router]);
 
 	return (
 		<div className="h-screen w-screen">
 			<header className="w-full">
-				<Navbar username={user && user.username} />
+				<Navbar username={auth && auth.user && auth.user.username} />
 			</header>
 			<main className="container flex flex-col items-center justify-center mx-auto mt-8 p-3 md:p-0">
 				{children}

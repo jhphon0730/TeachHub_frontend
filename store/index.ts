@@ -13,16 +13,18 @@ import {
 } from 'redux-persist';
 import storage from 'redux-persist/lib/storage'; // defaults to localStorage for web
 
-// Redux Persist 설정
-const persistConfig = {
-  key: 'root',       // 저장소에 저장될 키
-  storage,           // localStorage 사용
+const authPersistConfig = {
+  key: 'auth',
+  storage,
 };
 
-// Reducer에 persist 적용
-// persist란 앱을 새로고침해도 데이터가 유지되도록 하는 기능
-const authPersistedReducer = persistReducer(persistConfig, authReducer);
-const dashboardPersistedReducer = persistReducer(persistConfig, dashboardReducer);
+const dashboardPersistConfig = {
+  key: 'dashboard',
+  storage,
+};
+
+const authPersistedReducer = persistReducer(authPersistConfig, authReducer);
+const dashboardPersistedReducer = persistReducer(dashboardPersistConfig, dashboardReducer);
 
 export const store = configureStore({
   reducer: {
