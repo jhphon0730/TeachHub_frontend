@@ -7,6 +7,7 @@ import { useRouter } from 'next/navigation';
 import Navbar from "@/components/Navbar";
 
 import { RootState } from '@/store';
+import { getCookie } from '@/lib/utils';
 
 interface MainLayoutProps extends React.HTMLAttributes<HTMLDivElement> {
 }
@@ -15,10 +16,8 @@ const MainLayout = ({ children }: MainLayoutProps) => {
 	const router = useRouter();
 	const auth = useSelector((state: RootState) => state.auth);
 
-	// 페이지 이동 시에 확인 해주는 backend 추가 예정
-	// TODO: 쿠키 확인 추가
 	React.useEffect(() => {
-		if (!auth.user) {
+		if (!auth.user || !getCookie('token') || !getCookie('user')) {
 				router.push('/login');
 		}
 	}, [auth, router]);

@@ -1,3 +1,5 @@
+import { getCookie } from '@/lib/utils';
+
 export interface FetchOptions {
 	headers?: {[key: string]: any};
 	method?: 'GET' | 'POST' | 'PUT' | 'PATCH' | 'DELETE';
@@ -22,8 +24,7 @@ export const fetchWithoutAuth = async (url: string, options: FetchOptions = {} )
 }
 
 export const fetchWithAuth = async (url: string, options: FetchOptions = {} ) => {
-	// TODO: 쿠키 확인 추가
-	const token = ''
+	const token = getCookie('token');
 
   const defaultHeaders = {
     'Content-Type': 'application/json',
@@ -43,6 +44,7 @@ export const fetchWithAuth = async (url: string, options: FetchOptions = {} ) =>
 		return await response.json();
 	} catch (error) {
 		alert('로그인이 필요합니다.');
+		window.location.href = '/login';
 		console.error(error);
 	}
 };

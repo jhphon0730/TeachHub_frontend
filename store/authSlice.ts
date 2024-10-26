@@ -4,6 +4,7 @@ import {
 	RequestLogin, RequestRegister, RequestUpdate,
 	LoginFormModel, RegisterFormModel, UpdateFormModel
 } from '@/lib/api/auth';
+import { getCookie, removeCookie, setCookie } from '@/lib/utils';
 
 interface AuthState {
   user: UserModel | null;
@@ -65,7 +66,8 @@ const authSlice = createSlice({
     logout: (state) => {
       state.user = null;
       state.token = null;
-			// TODO : 쿠키 지워주는 로직 추가
+      removeCookie('token');
+      removeCookie('user');
     },
     resetRegistrationSuccess: (state) => {
       state.registrationSuccess = false;
@@ -85,7 +87,9 @@ const authSlice = createSlice({
         }
         state.user = action.payload.data.user;
         state.token = action.payload.data.token;
-				// TODO : 쿠키 추가
+        // 만료 기간 1일
+        setCookie('user', action.payload.data.user.id.toString(), { expires: 1 });
+        setCookie('token', action.payload.data.token, { expires: 1 });
       })
       .addCase(login.rejected, (state, action) => {
         state.loading = false;
@@ -111,7 +115,8 @@ const authSlice = createSlice({
 				state.loading = false;
 				state.user = null;
 				state.token = null;
-				// TODO : 쿠키 지워주는 로직 추가
+        removeCookie('token');
+        removeCookie('user');
 			})
 			.addCase(update.rejected, (state, action) => {
 				state.loading = false;
