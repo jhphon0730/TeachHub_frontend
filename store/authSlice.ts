@@ -65,8 +65,7 @@ const authSlice = createSlice({
     logout: (state) => {
       state.user = null;
       state.token = null;
-      localStorage.removeItem('user');
-      localStorage.removeItem('token');
+			// TODO : 쿠키 지워주는 로직 추가
     },
     resetRegistrationSuccess: (state) => {
       state.registrationSuccess = false;
@@ -86,8 +85,7 @@ const authSlice = createSlice({
         }
         state.user = action.payload.data.user;
         state.token = action.payload.data.token;
-        localStorage.setItem('user', JSON.stringify(action.payload.data.user));
-        localStorage.setItem('token', action.payload.data.token);
+				// TODO : 쿠키 추가
       })
       .addCase(login.rejected, (state, action) => {
         state.loading = false;
@@ -113,8 +111,7 @@ const authSlice = createSlice({
 				state.loading = false;
 				state.user = null;
 				state.token = null;
-				localStorage.removeItem('user');
-				localStorage.removeItem('token');
+				// TODO : 쿠키 지워주는 로직 추가
 			})
 			.addCase(update.rejected, (state, action) => {
 				state.loading = false;

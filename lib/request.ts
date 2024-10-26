@@ -22,7 +22,8 @@ export const fetchWithoutAuth = async (url: string, options: FetchOptions = {} )
 }
 
 export const fetchWithAuth = async (url: string, options: FetchOptions = {} ) => {
-  const token = localStorage.getItem('token');  // JWT 토큰을 localStorage에서 가져옴
+	// TODO: 쿠키 확인 추가
+	const token = ''
 
   const defaultHeaders = {
     'Content-Type': 'application/json',

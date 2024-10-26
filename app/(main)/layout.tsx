@@ -16,10 +16,9 @@ const MainLayout = ({ children }: MainLayoutProps) => {
 	const auth = useSelector((state: RootState) => state.auth);
 
 	// 페이지 이동 시에 확인 해주는 backend 추가 예정
+	// TODO: 쿠키 확인 추가
 	React.useEffect(() => {
-		const storedUser = JSON.parse(localStorage.getItem('user') || 'null');
-		const storedToken = localStorage.getItem('token');
-		if (!auth.user || !storedUser || !storedToken) {
+		if (!auth.user) {
 				router.push('/login');
 		}
 	}, [auth, router]);
