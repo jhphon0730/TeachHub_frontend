@@ -16,6 +16,7 @@ const MainLayout = ({ children }: MainLayoutProps) => {
 	const router = useRouter();
 	const auth = useSelector((state: RootState) => state.auth);
 
+	// login 페이 이동 시에 자동 로그아웃
 	React.useEffect(() => {
 		if (!auth.user || !getCookie('token') || !getCookie('user')) {
 				router.push('/login');
