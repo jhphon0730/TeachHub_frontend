@@ -13,9 +13,10 @@ import {
 interface DashboardInfoProps {
 	role: "student" | "instructor" | "admin"
 	courses: CourseModel[] | null
+	getCourse: () => void
 }
 
-const DashboardInfo = ({ courses }: DashboardInfoProps) => {
+const DashboardInfo = ({ courses, getCourse }: DashboardInfoProps) => {
 	return (
 		<Tabs defaultValue="all-courses" className="space-y-4">
 			<TabsList>
@@ -40,10 +41,11 @@ const DashboardInfo = ({ courses }: DashboardInfoProps) => {
 								</div>
 								<div className="space-x-2">
 									<Button variant="default" size="sm">Continue</Button>
-									<RemoveStudentToCourseModal 
+									{ course.student_count != 0 && <RemoveStudentToCourseModal 
 										course_id={course.id}
 										course_name={course.title}
-									/>
+										getCourse={getCourse}
+									/> }
 								</div>
 							</div>
 						</CardContent>

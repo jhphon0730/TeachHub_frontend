@@ -7,24 +7,41 @@ import { Button } from "@/components/ui/button"
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog"
 import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue, } from "@/components/ui/select"
 
-import { RemoveStudentToCourse } from '@/lib/api/dashboard'
+import { 
+	RemoveStudentToCourse, 
+	GetStudentByCourseID, IGetStudentByCourseID
+} from '@/lib/api/dashboard'
 
 interface RemoveStudentToCourseModalProps {
 	course_id: number
 	course_name: string
+	getCourse: () => void
 }
 
 /* 학생을 강의/강좌에서 제거하는 모달 */
-const RemoveStudentToCourseModal = ({course_id, course_name}: RemoveStudentToCourseModalProps) => {
+const RemoveStudentToCourseModal = ({course_id, course_name, getCourse}: RemoveStudentToCourseModalProps) => {
 	const [isOpen, setIsOpen] = React.useState<boolean>(false)
+	const [students, setStudents] = React.useState<IGetStudentByCourseID[] | null>(null)
 	const [removeData, setRemoveData] = React.useState<Record<string, string | number>>({})
 
-	const handleOpen = () => {
+	const handleOpen = async (): Promise<void> => {
 		setRemoveData(() => ({
 			student_username: '',
 			course_id: course_id,
 		}))
 
+		const res = await GetStudentByCourseID(course_id)
+		if (res.status !== 'success') {
+			Swal.fire({
+				icon: 'error',
+				title: 'Failed to get students',
+				text: res.message,
+				timer: 1500,
+			})
+			return
+		}
+		console.log(res.data)
+		setStudents(() => res.data)
 		setIsOpen(() => true)
 	}
 
@@ -32,11 +49,11 @@ const RemoveStudentToCourseModal = ({course_id, course_name}: RemoveStudentToCou
 		setIsOpen(() => false)
 	}
 
-	const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
-		const { name, value } = e.target
+	/* Select 입력 */
+	const handleSelectChange = (value: string) => {
 		setRemoveData((prev) => ({
 			...prev,
-			[name]: value,
+			student_username: value,
 		}))
 	}
 
@@ -67,6 +84,7 @@ const RemoveStudentToCourseModal = ({course_id, course_name}: RemoveStudentToCou
 			text: 'Successfully removed student to course',
 			timer: 1500,
 		})
+		getCourse()
 		handleClose()
 	}
 
@@ -86,15 +104,30 @@ const RemoveStudentToCourseModal = ({course_id, course_name}: RemoveStudentToCou
 					</DialogHeader>
 					<div className="grid gap-4 py-4">
 						<div className="grid grid-cols-4 items-center gap-4">
-							<Label htmlFor="student_username" className="text-center">Student Name</Label>
-							<Input
-								type="text"
-								id="student_username"
-								name="student_username"
-								placeholder="Enter student name"
-								className="col-span-3"
-								value={removeData.student_id} 
-								onChange={handleChange}/>
+							<Label htmlFor="student_username" className="text-center">Student</Label>
+							<div className="col-span-3">
+								{ students && (
+									<Select
+										name="student_username"
+										onValueChange={handleSelectChange}
+									>
+										<SelectTrigger>
+											<SelectValue>
+												{removeData.student_username}
+											</SelectValue>
+										</SelectTrigger>
+										<SelectContent>
+											<SelectGroup>
+												{students.map((student, index) => (
+													<SelectItem key={index} value={student.user_username}>
+														{student.user_username}
+													</SelectItem>
+												))}
+											</SelectGroup>
+										</SelectContent>
+									</Select>
+								)}
+							</div>
 						</div>
 						<div className="grid grid-cols-4 items-center gap-4">
 							<Label htmlFor="course_id" className="text-center">Selected Course Name</Label>
@@ -106,7 +139,7 @@ const RemoveStudentToCourseModal = ({course_id, course_name}: RemoveStudentToCou
 						</div>
 					</div>
 					<DialogFooter>
-						<Button type="submit" onClick={handleSubmit}>Add Course</Button>
+						<Button type="submit" onClick={handleSubmit}>Remove Student</Button>
 						<Button variant="outline" onClick={handleClose}>Cancel</Button>
 					</DialogFooter>
 				</DialogContent>

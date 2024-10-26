@@ -172,7 +172,9 @@ const DashboardPage = () => {
 						my_course_count={initial_student.my_course_count}/>
 					<DashboardInfo 
 						role={user.role} 
-						courses={courses} /> 
+						courses={courses} 
+						getCourse={getCoursesByStudentID}
+					/> 
 				</React.Fragment>
 				)}
 
@@ -196,7 +198,9 @@ const DashboardPage = () => {
 						my_course_count={initial_instructor.my_course_count} />
 					<DashboardInfo 
 						role={user.role}
-						courses={courses} /> 
+						courses={courses} 
+						getCourse={getCourseByInstructorID}
+					/> 
 				</React.Fragment>
 			)}
 			{ loading && <Loading /> }
