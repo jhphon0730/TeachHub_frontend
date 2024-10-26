@@ -11,7 +11,7 @@ import {
   PURGE,
   REGISTER,
 } from 'redux-persist';
-import storage from 'redux-persist/lib/storage'; // defaults to localStorage for web
+import storage from 'redux-persist/lib/storage';
 
 const authPersistConfig = {
   key: 'auth',
@@ -28,8 +28,8 @@ const dashboardPersistedReducer = persistReducer(dashboardPersistConfig, dashboa
 
 export const store = configureStore({
   reducer: {
-    auth: authPersistedReducer,  // Persisted Reducer 사용
-		dashboard: dashboardPersistedReducer,
+    auth: authPersistedReducer,
+    dashboard: dashboardPersistedReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
@@ -39,9 +39,7 @@ export const store = configureStore({
     }),
 });
 
-// Persistor 생성
 export const persistor = persistStore(store);
 
-// RootState 및 AppDispatch 타입
 export type RootState = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;
