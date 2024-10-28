@@ -24,7 +24,7 @@ const MainLayout = ({ children }: MainLayoutProps) => {
 	}, [auth, router]);
 
 	return (
-		<div className="h-screen w-screen">
+		<div className="h-screen">
 			<header className="w-full">
 				<Navbar username={auth && auth.user && auth.user.username} />
 			</header>
